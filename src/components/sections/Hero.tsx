@@ -5,6 +5,7 @@ import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { MediaTile } from '../ui/MediaTile';
+import { Parallax } from '../ui/Parallax';
 import styles from './Hero.module.css';
 
 /** Hero van de homepagina: introductie, status en visuele blikvanger. */
@@ -50,8 +51,13 @@ export function Hero(): JSX.Element {
 
         <div className={styles.media} aria-hidden="true">
           {/* PLAATS HIER EIGEN FOTO'S: vul `src` in via de MediaTile (zie portfolio.ts/team.ts). */}
-          <MediaTile alt="Sfeerbeeld van de salon" tone="terracotta" ratio="4 / 5" className={styles.tileFront} />
-          <MediaTile alt="Detailbeeld kapsel" tone="sand" ratio="1 / 1" className={styles.tileBack} />
+          {/* Twee lagen op verschillende snelheid → subtiele dieptewerking (parallax). */}
+          <Parallax speed={0.06} className={styles.tileFront}>
+            <MediaTile alt="Sfeerbeeld van de salon" tone="terracotta" ratio="4 / 5" />
+          </Parallax>
+          <Parallax speed={0.2} className={styles.tileBack}>
+            <MediaTile alt="Detailbeeld kapsel" tone="sand" ratio="1 / 1" />
+          </Parallax>
         </div>
       </Container>
     </section>
