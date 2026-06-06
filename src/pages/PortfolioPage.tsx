@@ -16,8 +16,8 @@ export function PortfolioPage(): JSX.Element {
       <Seo page={pageSeo.portfolio} />
       <PageHeader
         eyebrow="Portfolio"
-        title="Sfeer en stijl ter inspiratie"
-        intro="Klik op een beeld om het te vergroten. Binnenkort vullen we deze pagina met eigen foto's uit de salon."
+        title="Een impressie van ons werk"
+        intro="Klik op een beeld om het te vergroten. Binnenkort vervangen we deze sfeerbeelden door eigen foto's uit de salon."
       />
 
       <Section>
@@ -25,8 +25,8 @@ export function PortfolioPage(): JSX.Element {
           <PortfolioGrid />
           <Reveal>
             <p className={styles.note}>
-              De beelden op deze pagina zijn sfeerbeelden. Volg ons op Instagram voor actuele
-              looks uit de salon.
+              De getoonde beelden zijn tijdelijke placeholders. Volg ons op Instagram voor de
+              nieuwste looks.
             </p>
           </Reveal>
         </Container>

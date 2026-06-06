@@ -3,10 +3,10 @@ import type { GalleryImage } from './types';
 /**
  * Portfolio / sfeerbeelden.
  *
- * LET OP: de huidige `src`-foto's zijn TIJDELIJKE placeholders (themed stock).
- * Vervang ze door eigen foto's: zet het bestand in /public/images/portfolio/
- * en pas het `src`-pad + de `alt`-tekst aan. Laat je `src` weg, dan toont de
+ * Eigen foto's plaatsen? Zet de afbeelding in /public/images en vul `src` in
+ * (bijv. '/images/portfolio/balayage-1.jpg'). Zolang `src` leeg is, toont de
  * galerij een stijlvolle kleurvlak-placeholder met de bijbehorende `tone`.
+ * Houd de `alt`-tekst beschrijvend voor toegankelijkheid en SEO.
  */
 export const portfolio: readonly GalleryImage[] = [
   {
@@ -14,7 +14,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Warme balayage met zachte highlights, zijdelings gefotografeerd.',
     caption: 'Warme balayage',
     category: 'Kleuren',
-    src: '/images/portfolio/balayage-warm.jpg',
     tone: 'terracotta',
   },
   {
@@ -22,7 +21,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Moderne gelaagde coupe op schouderlengte.',
     caption: 'Gelaagde coupe',
     category: 'Knippen',
-    src: '/images/portfolio/coupe-modern.jpg',
     tone: 'sand',
   },
   {
@@ -30,7 +28,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Elegant opgestoken bruidskapsel met losse lokken.',
     caption: 'Bruidskapsel',
     category: 'Opsteken',
-    src: '/images/portfolio/opsteek-bruid.jpg',
     tone: 'olive',
   },
   {
@@ -38,7 +35,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Glanzend, verzorgd haar na een glossing-behandeling.',
     caption: 'Glans & verzorging',
     category: 'Behandelingen',
-    src: '/images/portfolio/glans-behandeling.jpg',
     tone: 'clay',
   },
   {
@@ -46,7 +42,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Natuurlijke krullen, vol en gedefinieerd gestyled.',
     caption: 'Krullen styling',
     category: 'Styling',
-    src: '/images/portfolio/krullen-styling.jpg',
     tone: 'cream',
   },
   {
@@ -54,7 +49,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Fijne highlights die het haar lichter en levendiger maken.',
     caption: 'Highlights',
     category: 'Kleuren',
-    src: '/images/portfolio/highlights-koel.jpg',
     tone: 'ink',
   },
   {
@@ -62,7 +56,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Strakke bob-coupe met een gladde finish.',
     caption: 'Strakke bob',
     category: 'Knippen',
-    src: '/images/portfolio/bob-strak.jpg',
     tone: 'sand',
   },
   {
@@ -70,7 +63,6 @@ export const portfolio: readonly GalleryImage[] = [
     alt: 'Verfijnd opsteekkapsel voor een galagelegenheid.',
     caption: 'Gala-opsteek',
     category: 'Opsteken',
-    src: '/images/portfolio/opsteek-gala.jpg',
     tone: 'terracotta',
   },
 ];

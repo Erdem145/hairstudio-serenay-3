@@ -1,8 +1,7 @@
 import type { JSX } from 'react';
 import { Link } from 'react-router-dom';
-import { navigation, openingHours, partner, site } from '../../data';
+import { navigation, openingHours, site } from '../../data';
 import { formatDayHours } from '../../lib/format';
-import { assetUrl } from '../../lib/asset';
 import { Icon } from '../ui/Icon';
 import { Wordmark } from './Wordmark';
 import styles from './Footer.module.css';
@@ -64,17 +63,6 @@ export function Footer(): JSX.Element {
               ))}
             </ul>
           )}
-          <div className={styles.partner}>
-            <span className={styles.partnerLabel}>{partner.label}</span>
-            <span className={styles.partnerChip}>
-              <img
-                className={styles.partnerLogo}
-                src={assetUrl(partner.logo)}
-                alt={partner.alt}
-                loading="lazy"
-              />
-            </span>
-          </div>
         </div>
 
         <nav className={styles.column} aria-label="Footernavigatie">
@@ -121,13 +109,15 @@ export function Footer(): JSX.Element {
                 WhatsApp
               </a>
             </li>
-            {contact.email && (
-              <li>
+            <li>
+              {contact.email ? (
                 <a href={`mailto:${contact.email}`} className={styles.link} itemProp="email">
                   {contact.email}
                 </a>
-              </li>
-            )}
+              ) : (
+                <span className={styles.muted}>E-mailadres volgt binnenkort</span>
+              )}
+            </li>
           </ul>
         </div>
 

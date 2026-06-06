@@ -1,17 +1,14 @@
 import type { JSX } from 'react';
-import { about, pageSeo, serviceGroups, site } from '../data';
+import { about, pageSeo, site } from '../data';
 import { Seo } from '../components/seo/Seo';
 import { Section } from '../components/ui/Section';
 import { Container } from '../components/ui/Container';
 import { Reveal } from '../components/ui/Reveal';
 import { Button } from '../components/ui/Button';
-import { ParallaxImage } from '../components/ui/ParallaxImage';
+import { MediaTile } from '../components/ui/MediaTile';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Icon } from '../components/ui/Icon';
 import { Hero } from '../components/sections/Hero';
-import { Marquee } from '../components/sections/Marquee';
-import { StatementBand } from '../components/sections/StatementBand';
-import { VideoBand } from '../components/sections/VideoBand';
 import { ServicesPreview } from '../components/sections/ServicesPreview';
 import { PortfolioGrid } from '../components/sections/PortfolioGrid';
 import { HoursCard } from '../components/sections/HoursCard';
@@ -24,12 +21,10 @@ export function HomePage(): JSX.Element {
       <Seo page={pageSeo.home} />
       <Hero />
 
-      <Marquee items={serviceGroups.map((group) => group.title)} />
-
       {/* Welkom / korte introductie */}
       <Section aria-labelledby="welkom-titel">
         <Container className={styles.split}>
-          <Reveal className={styles.splitCopy} from="left">
+          <Reveal className={styles.splitCopy}>
             <span className="eyebrow">Welkom</span>
             <h2 id="welkom-titel">{about.lead}</h2>
             <p className={styles.paragraph}>{about.paragraphs[0]}</p>
@@ -37,15 +32,8 @@ export function HomePage(): JSX.Element {
               Lees ons verhaal
             </Button>
           </Reveal>
-          <Reveal className={styles.splitMedia} delay={120} from="right">
-            <ParallaxImage
-              src="/images/sfeer/welkom.jpg"
-              alt="Sfeerbeeld van Hairstudio Serenay"
-              tone="olive"
-              ratio="4 / 5"
-              strength={0.18}
-              kenBurns
-            />
+          <Reveal className={styles.splitMedia} delay={120}>
+            <MediaTile alt="Sfeerbeeld van Hairstudio Serenay" tone="olive" ratio="4 / 5" />
           </Reveal>
         </Container>
       </Section>
@@ -71,17 +59,14 @@ export function HomePage(): JSX.Element {
         </Container>
       </Section>
 
-      {/* Sfeerband met achtergrond-parallax */}
-      <StatementBand />
-
       {/* Portfolio-teaser */}
       <Section aria-labelledby="werk-titel">
         <Container>
           <SectionHeading
             id="werk-titel"
             eyebrow="Portfolio"
-            title="Sfeerbeelden ter inspiratie"
-            intro="Bekijk kapsels, kleuringen en opsteeklooks als stijlrichting. Op Instagram delen we de actuele salonmomenten."
+            title="Een greep uit ons werk"
+            intro="Een impressie van coupes, kleuringen en opsteekkapsels. Bekijk de volledige galerij."
           />
           <div className={styles.servicesWrap}>
             <PortfolioGrid limit={4} />
@@ -93,9 +78,6 @@ export function HomePage(): JSX.Element {
           </Reveal>
         </Container>
       </Section>
-
-      {/* L'Oréal partner + sfeervideo */}
-      <VideoBand />
 
       {/* Bezoek plannen: openingstijden + contact */}
       <Section surface="sand" aria-labelledby="bezoek-titel">

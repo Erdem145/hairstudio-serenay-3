@@ -3,7 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 // Self-hosted lettertypes (geen externe CDN → AVG-proof + strakke CSP).
-import './styles/fonts.css';
+import '@fontsource-variable/cormorant';
+import '@fontsource-variable/cormorant/wght-italic.css';
+import '@fontsource-variable/inter';
 
 import './styles/tokens.css';
 import './styles/global.css';

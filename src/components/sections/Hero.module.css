@@ -1,38 +1,20 @@
 .hero {
   position: relative;
-  display: grid;
-  align-content: center;
-  min-height: clamp(620px, 90vh, 940px);
-  padding-block: clamp(4rem, 3rem + 6vw, 7rem) var(--section-y);
+  padding-block: clamp(2.5rem, 1.5rem + 5vw, 5rem) var(--section-y);
   overflow: hidden;
 }
 
-/* Zachte, warme achtergrond die meebeweegt (parallax). */
-.heroBg {
-  background:
-    radial-gradient(38% 48% at 78% 22%, var(--color-primary-softer), transparent 70%),
-    radial-gradient(42% 48% at 12% 88%, var(--color-accent-soft), transparent 70%);
-}
-
-/* Tweede, langzaam drijvende gloed → de achtergrond "ademt". */
-.heroBg::before {
+/* Zachte, warme achtergrondgloed achter de tekst. */
+.hero::before {
   content: '';
   position: absolute;
-  inset: -25%;
-  background: radial-gradient(34% 38% at 32% 34%, var(--color-primary-soft), transparent 70%);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .heroBg::before {
-    animation: heroDrift 28s var(--ease-in-out) infinite alternate;
-  }
-}
-@keyframes heroDrift {
-  from {
-    transform: translate3d(-3%, -2%, 0) scale(1);
-  }
-  to {
-    transform: translate3d(4%, 3%, 0) scale(1.12);
-  }
+  top: -20%;
+  right: -10%;
+  width: 55%;
+  height: 120%;
+  background: radial-gradient(circle at center, rgba(160, 79, 42, 0.1), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .inner {
@@ -112,7 +94,7 @@
 }
 .open {
   color: var(--olive-deep);
-  background-color: var(--color-accent-soft);
+  background-color: rgba(94, 107, 54, 0.12);
 }
 .closed {
   color: var(--color-text-muted);
@@ -134,7 +116,6 @@
 .tileFront {
   width: 82%;
   margin-left: auto;
-  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
 
@@ -144,7 +125,6 @@
   bottom: 0;
   width: 44%;
   border: 6px solid var(--color-bg);
-  border-radius: calc(var(--radius-lg) + 6px);
   box-shadow: var(--shadow-md);
 }
 
@@ -172,62 +152,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* ── Scroll-cue ─────────────────────────────────────────────────────────── */
-.scrollCue {
-  position: absolute;
-  left: 50%;
-  bottom: var(--space-5);
-  transform: translateX(-50%);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  z-index: var(--z-base);
-}
-
-.scrollLabel {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
-.scrollLine {
-  position: relative;
-  width: 1px;
-  height: 52px;
-  background-color: var(--color-border-strong);
-  overflow: hidden;
-}
-.scrollLine::after {
-  content: '';
-  position: absolute;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 45%;
-  background: linear-gradient(var(--color-primary), transparent);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .scrollLine::after {
-    animation: scrollTravel 2.4s var(--ease-in-out) infinite;
-  }
-}
-@keyframes scrollTravel {
-  0% {
-    transform: translateY(-110%);
-  }
-  100% {
-    transform: translateY(240%);
-  }
-}
-
-@media (min-width: 700px) {
-  .scrollCue {
-    display: flex;
   }
 }
 

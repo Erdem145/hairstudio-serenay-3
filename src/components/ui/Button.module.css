@@ -1,6 +1,4 @@
 .button {
-  position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -11,21 +9,14 @@
   text-align: center;
   border-radius: var(--radius-pill);
   border: 1.5px solid transparent;
-  /* Alleen transform/opacity/kleur/schaduw — emil: scale-feedback op press. */
+  /* Alleen transform/opacity/kleur animeren — emil: scale-feedback op press. */
   transition:
     transform var(--dur-fast) var(--ease-out),
     background-color var(--dur-base) var(--ease-standard),
     border-color var(--dur-base) var(--ease-standard),
-    box-shadow var(--dur-base) var(--ease-standard),
     color var(--dur-base) var(--ease-standard);
   /* Comfortabele touch target (>= 44px hoog). */
   min-height: 2.875rem;
-}
-
-/* Label en icoon boven de glans-laag. */
-.button > * {
-  position: relative;
-  z-index: 1;
 }
 
 .button:active {
@@ -55,28 +46,9 @@
   background-color: var(--color-primary);
   color: var(--color-on-primary);
 }
-/* Glanzende lichtveeg die bij hover over de knop schuift. */
-.primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 35%,
-    var(--color-button-sheen) 50%,
-    transparent 65%
-  );
-  transform: translateX(-130%);
-  transition: transform var(--dur-slower) var(--ease-out);
-}
 @media (hover: hover) and (pointer: fine) {
   .primary:hover {
     background-color: var(--color-primary-hover);
-    box-shadow: var(--shadow-md);
-  }
-  .primary:hover::after {
-    transform: translateX(130%);
   }
 }
 
@@ -89,7 +61,6 @@
   .secondary:hover {
     border-color: var(--color-text);
     background-color: var(--color-surface);
-    box-shadow: var(--shadow-sm);
   }
 }
 
@@ -113,13 +84,13 @@
 
 /* ── Varianten op donkere achtergrond ───────────────────────────────────── */
 .secondary.onDark {
-  border-color: var(--color-light-border);
+  border-color: rgba(243, 234, 217, 0.4);
   color: var(--color-text-on-dark);
 }
 @media (hover: hover) and (pointer: fine) {
   .secondary.onDark:hover {
     border-color: var(--color-text-on-dark);
-    background-color: var(--color-light-scrim-subtle);
+    background-color: rgba(243, 234, 217, 0.08);
   }
 }
 .ghost.onDark {

@@ -10,6 +10,5 @@ export { serviceGroups } from './services';
 export { team } from './team';
 export { about } from './about';
 export { portfolio } from './portfolio';
-export { partner } from './partners';
 export { pageSeo } from './seo';
 export type { PageSeoKey } from './seo';

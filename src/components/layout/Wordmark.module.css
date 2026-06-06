@@ -3,10 +3,6 @@
   flex-direction: column;
   line-height: 1;
   gap: 2px;
-  /* Krimpt mee met de header bij scrollen (token erft van .header). */
-  transform: scale(var(--wm-scale, 1));
-  transform-origin: left center;
-  transition: transform var(--dur-slow) var(--ease-out);
 }
 
 .prefix {

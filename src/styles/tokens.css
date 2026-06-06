@@ -38,27 +38,6 @@
   --color-border: var(--sand-deep);
   --color-border-strong: #d4c3a6;
   --color-ring: var(--terracotta);
-  --color-bg-glass: rgba(247, 241, 231, 0.82);
-  --color-primary-soft: rgba(160, 79, 42, 0.14);
-  --color-primary-softer: rgba(160, 79, 42, 0.16);
-  --color-accent-soft: rgba(94, 107, 54, 0.12);
-  --color-light-scrim-subtle: rgba(243, 234, 217, 0.1);
-  --color-light-scrim: rgba(243, 234, 217, 0.2);
-  --color-light-border: rgba(243, 234, 217, 0.4);
-  --color-footer-rule: rgba(243, 234, 217, 0.12);
-  --color-dark-scrim-soft: rgba(34, 29, 25, 0.18);
-  --color-dark-scrim: rgba(34, 29, 25, 0.32);
-  --color-dark-scrim-strong: rgba(34, 29, 25, 0.7);
-  --color-dark-scrim-modal: rgba(34, 29, 25, 0.78);
-  --color-statement-fallback: #7c3a1d;
-  --color-statement-warm: rgba(120, 58, 29, 0.62);
-  --color-statement-deep: rgba(34, 27, 22, 0.78);
-  --color-statement-text-muted: rgba(247, 241, 231, 0.82);
-  --color-statement-shadow: rgba(34, 27, 22, 0.35);
-  --color-video-scrim-strong: rgba(34, 27, 22, 0.82);
-  --color-video-scrim: rgba(34, 27, 22, 0.55);
-  --color-video-scrim-soft: rgba(34, 27, 22, 0.4);
-  --color-button-sheen: rgba(255, 255, 255, 0.22);
 
   /* ── Typografie ─────────────────────────────────────────────────────────── */
   --font-display: 'Cormorant Variable', 'Cormorant', Georgia, 'Times New Roman', serif;
@@ -113,41 +92,11 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  /* Luxe, "boutique" ease-out met een lange staart voor sierlijke reveals. */
-  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
 
   --dur-fast: 140ms;
   --dur-base: 200ms;
   --dur-slow: 300ms;
-  --dur-reveal: 700ms;
-  --dur-slower: 1000ms;
-
-  /* Fijne goud-hairline voor sierlijke scheidingen/accenten. */
-  --hairline-gold: rgba(154, 123, 63, 0.4);
-  --shadow-hover: 0 30px 70px -26px rgba(42, 36, 32, 0.3);
-
-  --gradient-placeholder-terracotta: linear-gradient(135deg, #b9663d, var(--terracotta-deep));
-  --gradient-placeholder-clay: linear-gradient(135deg, #c98a63, var(--terracotta));
-  --gradient-placeholder-olive: linear-gradient(135deg, #6f7d44, var(--olive-deep));
-  --gradient-placeholder-ink: linear-gradient(135deg, #3a322b, var(--color-surface-dark));
-  --gradient-placeholder-sand: linear-gradient(135deg, var(--sand), #d8c6a6);
-  --gradient-placeholder-cream: linear-gradient(135deg, #fbf6ec, #e9dcc6);
-  --gradient-portfolio-scrim: linear-gradient(
-    to top,
-    var(--color-dark-scrim-strong),
-    rgba(34, 29, 25, 0) 55%
-  );
-  --gradient-statement-scrim: linear-gradient(
-    135deg,
-    var(--color-statement-warm),
-    var(--color-statement-deep)
-  );
-  --gradient-video-scrim: linear-gradient(
-    110deg,
-    var(--color-video-scrim-strong) 0%,
-    var(--color-video-scrim) 60%,
-    var(--color-video-scrim-soft) 100%
-  );
+  --dur-reveal: 600ms;
 
   /* ── Layout ─────────────────────────────────────────────────────────────── */
   --container: 1200px;

@@ -4,8 +4,7 @@ import { formatAddressLine, getOpenStatus } from '../../lib/format';
 import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
-import { ParallaxImage } from '../ui/ParallaxImage';
-import { ParallaxBg } from '../ui/ParallaxBg';
+import { MediaTile } from '../ui/MediaTile';
 import styles from './Hero.module.css';
 
 /** Hero van de homepagina: introductie, status en visuele blikvanger. */
@@ -14,7 +13,6 @@ export function Hero(): JSX.Element {
 
   return (
     <section className={styles.hero} aria-labelledby="hero-titel">
-      <ParallaxBg strength={0.15} className={styles.heroBg} />
       <Container className={styles.inner}>
         <div className={styles.copy}>
           <span className={`eyebrow ${styles.eyebrow}`}>
@@ -52,32 +50,10 @@ export function Hero(): JSX.Element {
 
         <div className={styles.media} aria-hidden="true">
           {/* PLAATS HIER EIGEN FOTO'S: vul `src` in via de MediaTile (zie portfolio.ts/team.ts). */}
-          {/* Vast kader, schuivend beeld → duidelijk zichtbare parallax.
-              PLACEHOLDER-foto's — vervang via src (zie public/images/sfeer/). */}
-          <ParallaxImage
-            src="/images/sfeer/hero-1.jpg"
-            alt="Sfeerbeeld van de salon"
-            tone="terracotta"
-            ratio="4 / 5"
-            strength={0.16}
-            kenBurns
-            className={styles.tileFront}
-          />
-          <ParallaxImage
-            src="/images/sfeer/hero-2.jpg"
-            alt="Detailbeeld kapsel"
-            tone="sand"
-            ratio="1 / 1"
-            strength={0.18}
-            className={styles.tileBack}
-          />
+          <MediaTile alt="Sfeerbeeld van de salon" tone="terracotta" ratio="4 / 5" className={styles.tileFront} />
+          <MediaTile alt="Detailbeeld kapsel" tone="sand" ratio="1 / 1" className={styles.tileBack} />
         </div>
       </Container>
-
-      <div className={styles.scrollCue} aria-hidden="true">
-        <span className={styles.scrollLabel}>Scroll</span>
-        <span className={styles.scrollLine} />
-      </div>
     </section>
   );
 }

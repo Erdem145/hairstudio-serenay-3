@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import type { JSX } from 'react';
 import { getMapsConsent, setMapsConsent } from '../../lib/consent';
-import { usePresence } from '../../lib/usePresence';
 import { Button } from '../ui/Button';
 import styles from './CookieConsent.module.css';
 
@@ -12,9 +11,8 @@ import styles from './CookieConsent.module.css';
  */
 export function CookieConsent(): JSX.Element | null {
   const [decided, setDecided] = useState(() => getMapsConsent() !== null);
-  const { mounted, open } = usePresence(!decided, 300);
 
-  if (!mounted) return null;
+  if (decided) return null;
 
   const choose = (value: 'granted' | 'denied'): void => {
     setMapsConsent(value);
@@ -24,23 +22,23 @@ export function CookieConsent(): JSX.Element | null {
   return (
     <div
       className={styles.banner}
-      data-open={open}
       role="dialog"
       aria-modal="false"
       aria-labelledby="consent-titel"
       aria-describedby="consent-tekst"
     >
       <div className={styles.content}>
-        <h2 id="consent-titel" className="visually-hidden">
+        <h2 id="consent-titel" className={styles.title}>
           Cookies &amp; privacy
         </h2>
         <p id="consent-tekst" className={styles.text}>
-          Google Maps op de contactpagina laden?
+          We gebruiken geen tracking. Alleen de kaart op onze contactpagina laadt inhoud van
+          Google Maps. Wil je die kaart kunnen bekijken?
         </p>
       </div>
       <div className={styles.actions}>
         <Button onClick={() => choose('granted')} size="md">
-          Toestaan
+          Kaart toestaan
         </Button>
         <Button onClick={() => choose('denied')} variant="secondary" size="md">
           Weigeren

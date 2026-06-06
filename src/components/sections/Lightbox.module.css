@@ -6,16 +6,10 @@
   place-items: center;
   padding: var(--space-4);
   /* Scrim sterk genoeg om de achtergrond te isoleren. */
-  background-color: var(--color-dark-scrim-modal);
+  background-color: rgba(34, 29, 25, 0.78);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  /* Soepele enter én exit via [data-open]. */
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out);
-}
-
-.backdrop[data-open='true'] {
-  opacity: 1;
+  animation: backdropIn var(--dur-base) var(--ease-out);
 }
 
 .dialog {
@@ -25,16 +19,7 @@
   gap: var(--space-3);
   width: 100%;
   max-width: 56rem;
-  opacity: 0;
-  transform: scale(0.96);
-  transition:
-    opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out);
-}
-
-.backdrop[data-open='true'] .dialog {
-  opacity: 1;
-  transform: scale(1);
+  animation: dialogIn var(--dur-slow) var(--ease-out);
 }
 
 .media {
@@ -93,7 +78,7 @@
   display: grid;
   place-items: center;
   color: var(--color-text-on-dark);
-  background-color: var(--color-light-scrim-subtle);
+  background-color: rgba(243, 234, 217, 0.1);
   border-radius: 50%;
   transition:
     transform var(--dur-fast) var(--ease-out),
@@ -106,7 +91,7 @@
 @media (hover: hover) and (pointer: fine) {
   .close:hover,
   .nav:hover {
-    background-color: var(--color-light-scrim);
+    background-color: rgba(243, 234, 217, 0.2);
   }
 }
 
@@ -124,9 +109,30 @@
   flex-shrink: 0;
 }
 
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .backdrop,
   .dialog {
-    transform: none;
+    animation: none;
   }
 }
 

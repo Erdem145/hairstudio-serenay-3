@@ -47,7 +47,7 @@
 
 .open {
   color: var(--olive-deep);
-  background-color: var(--color-accent-soft);
+  background-color: rgba(94, 107, 54, 0.12);
 }
 .closed {
   color: var(--color-text-muted);

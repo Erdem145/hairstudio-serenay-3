@@ -30,7 +30,3 @@ Thumbs.db
 
 # TS build info
 *.tsbuildinfo
-
-# Lokale agent-/skill-tooling (hoort niet in de website-repo)
-.agents/
-skills-lock.json

@@ -104,11 +104,6 @@ Zolang het `null` is, toont de site netjes "E-mailadres volgt binnenkort".
 
 ### Eigen foto's toevoegen
 
-> De site staat nu vol met **tijdelijke, themed placeholder-foto's** (self-hosted in
-> `public/images/`). Vervang ze door eigen, gelicentieerde foto's van de salon — overschrijf
-> simpelweg de bestanden of pas de paden aan in `team.ts` / `portfolio.ts` en de
-> sfeer-componenten.
-
 1. Zet de afbeelding in [`public/images/`](public/images/) (zie `public/images/LEESMIJ.txt`).
 2. Koppel het pad in `team.ts` (`image`) of `portfolio.ts` (`src`), bijvoorbeeld
    `'/images/suna.jpg'`.

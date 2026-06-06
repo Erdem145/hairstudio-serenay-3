@@ -29,42 +29,42 @@
 
 /* ── Tinten ─────────────────────────────────────────────────────────────── */
 .terracotta {
-  background: var(--gradient-placeholder-terracotta);
+  background: linear-gradient(135deg, #b9663d, #8f4622);
 }
 .terracotta .glyph {
   color: var(--cream);
 }
 
 .clay {
-  background: var(--gradient-placeholder-clay);
+  background: linear-gradient(135deg, #c98a63, #a04f2a);
 }
 .clay .glyph {
   color: var(--cream);
 }
 
 .olive {
-  background: var(--gradient-placeholder-olive);
+  background: linear-gradient(135deg, #6f7d44, #4c571f);
 }
 .olive .glyph {
   color: var(--cream);
 }
 
 .ink {
-  background: var(--gradient-placeholder-ink);
+  background: linear-gradient(135deg, #3a322b, #221d19);
 }
 .ink .glyph {
   color: var(--cream);
 }
 
 .sand {
-  background: var(--gradient-placeholder-sand);
+  background: linear-gradient(135deg, #efe6d6, #d8c6a6);
 }
 .sand .glyph {
   color: var(--ink);
 }
 
 .cream {
-  background: var(--gradient-placeholder-cream);
+  background: linear-gradient(135deg, #fbf6ec, #e9dcc6);
 }
 .cream .glyph {
   color: var(--ink);
