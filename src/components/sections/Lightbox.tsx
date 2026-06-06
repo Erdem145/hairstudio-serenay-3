@@ -9,6 +9,8 @@ import styles from './Lightbox.module.css';
 interface LightboxProps {
   images: readonly GalleryImage[];
   index: number;
+  /** Stuurt de enter/exit-transitie (blijft gemonteerd tijdens het sluiten). */
+  open: boolean;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
@@ -18,7 +20,7 @@ interface LightboxProps {
  * Toegankelijke lightbox: pijltjestoetsen navigeren, Escape sluit, focus blijft
  * binnen de dialoog. Modaal blijft gecentreerd (transform-origin center).
  */
-export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps): JSX.Element {
+export function Lightbox({ images, index, open, onClose, onPrev, onNext }: LightboxProps): JSX.Element {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const image = images[index];
@@ -75,6 +77,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
   return (
     <div
       className={styles.backdrop}
+      data-open={open}
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}

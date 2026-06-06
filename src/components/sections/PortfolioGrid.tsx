@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { JSX } from 'react';
 import { portfolio } from '../../data';
+import { usePresence } from '../../lib/usePresence';
 import { MediaTile } from '../ui/MediaTile';
 import { Reveal } from '../ui/Reveal';
 import { Lightbox } from './Lightbox';
@@ -13,21 +14,26 @@ interface PortfolioGridProps {
 
 /** Galerij met klikbare tegels die de afbeelding in een lightbox vergroten. */
 export function PortfolioGrid({ limit }: PortfolioGridProps = {}): JSX.Element {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const images = limit ? portfolio.slice(0, limit) : portfolio;
   const count = images.length;
 
+  // Houd de lightbox gemonteerd tijdens de exit-animatie (duur = --dur-slow).
+  const { mounted, open: shown } = usePresence(isOpen, 300);
+
   const open = (index: number, element: HTMLButtonElement): void => {
     triggerRef.current = element;
-    setOpenIndex(index);
+    setActiveIndex(index);
+    setIsOpen(true);
   };
   const close = (): void => {
-    setOpenIndex(null);
+    setIsOpen(false);
     triggerRef.current?.focus();
   };
-  const prev = (): void => setOpenIndex((i) => (i === null ? i : (i - 1 + count) % count));
-  const next = (): void => setOpenIndex((i) => (i === null ? i : (i + 1) % count));
+  const prev = (): void => setActiveIndex((i) => (i - 1 + count) % count);
+  const next = (): void => setActiveIndex((i) => (i + 1) % count);
 
   return (
     <>
@@ -56,8 +62,15 @@ export function PortfolioGrid({ limit }: PortfolioGridProps = {}): JSX.Element {
         ))}
       </ul>
 
-      {openIndex !== null && (
-        <Lightbox images={images} index={openIndex} onClose={close} onPrev={prev} onNext={next} />
+      {mounted && (
+        <Lightbox
+          images={images}
+          index={activeIndex}
+          open={shown}
+          onClose={close}
+          onPrev={prev}
+          onNext={next}
+        />
       )}
     </>
   );

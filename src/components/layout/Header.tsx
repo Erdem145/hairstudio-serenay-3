@@ -98,7 +98,13 @@ export function Header(): JSX.Element {
       </div>
 
       {/* Altijd gemonteerd → onderbreekbare enter/exit-transities (emil-design-eng). */}
-      <div className={styles.mobileMenu} data-open={menuOpen} id="mobiel-menu" aria-hidden={!menuOpen}>
+      <div
+        className={styles.mobileMenu}
+        data-open={menuOpen}
+        id="mobiel-menu"
+        aria-hidden={!menuOpen}
+        style={{ '--n': navigation.length } as CSSProperties}
+      >
         <nav className={styles.mobileNav} aria-label="Mobiele navigatie">
           <ul className={styles.mobileList}>
             {navigation.map((link, index) => (

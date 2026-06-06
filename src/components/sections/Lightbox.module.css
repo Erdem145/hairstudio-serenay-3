@@ -9,7 +9,13 @@
   background-color: rgba(34, 29, 25, 0.78);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  animation: backdropIn var(--dur-base) var(--ease-out);
+  /* Soepele enter én exit via [data-open]. */
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.backdrop[data-open='true'] {
+  opacity: 1;
 }
 
 .dialog {
@@ -19,7 +25,16 @@
   gap: var(--space-3);
   width: 100%;
   max-width: 56rem;
-  animation: dialogIn var(--dur-slow) var(--ease-out);
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.backdrop[data-open='true'] .dialog {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .media {
@@ -109,30 +124,9 @@
   flex-shrink: 0;
 }
 
-@keyframes backdropIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes dialogIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .backdrop,
   .dialog {
-    animation: none;
+    transform: none;
   }
 }
 
