@@ -121,15 +121,13 @@ export function Footer(): JSX.Element {
                 WhatsApp
               </a>
             </li>
-            <li>
-              {contact.email ? (
+            {contact.email && (
+              <li>
                 <a href={`mailto:${contact.email}`} className={styles.link} itemProp="email">
                   {contact.email}
                 </a>
-              ) : (
-                <span className={styles.muted}>E-mailadres volgt binnenkort</span>
-              )}
-            </li>
+              </li>
+            )}
           </ul>
         </div>
 

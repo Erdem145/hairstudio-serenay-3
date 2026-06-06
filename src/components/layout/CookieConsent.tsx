@@ -31,17 +31,16 @@ export function CookieConsent(): JSX.Element | null {
       aria-describedby="consent-tekst"
     >
       <div className={styles.content}>
-        <h2 id="consent-titel" className={styles.title}>
+        <h2 id="consent-titel" className="visually-hidden">
           Cookies &amp; privacy
         </h2>
         <p id="consent-tekst" className={styles.text}>
-          We gebruiken geen tracking. Alleen de kaart op onze contactpagina laadt inhoud van
-          Google Maps. Wil je die kaart kunnen bekijken?
+          Google Maps op de contactpagina laden?
         </p>
       </div>
       <div className={styles.actions}>
         <Button onClick={() => choose('granted')} size="md">
-          Kaart toestaan
+          Toestaan
         </Button>
         <Button onClick={() => choose('denied')} variant="secondary" size="md">
           Weigeren

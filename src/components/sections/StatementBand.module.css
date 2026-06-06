@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background-color: #7c3a1d; /* warme fallback terwijl de foto laadt */
+  background-color: var(--color-statement-fallback); /* warme fallback terwijl de foto laadt */
   color: var(--color-text-on-dark);
   padding-block: clamp(5.5rem, 3.5rem + 11vw, 10rem);
 }
@@ -19,7 +19,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(120, 58, 29, 0.62), rgba(34, 27, 22, 0.78));
+  background: var(--gradient-statement-scrim);
 }
 
 .inner {
@@ -30,7 +30,7 @@
 
 .eyebrow {
   justify-content: center;
-  color: rgba(247, 241, 231, 0.82);
+  color: var(--color-statement-text-muted);
 }
 
 .quote {
@@ -42,5 +42,5 @@
   text-wrap: balance;
   max-width: 22ch;
   margin: var(--space-3) auto 0;
-  text-shadow: 0 1px 24px rgba(34, 27, 22, 0.35);
+  text-shadow: 0 1px 24px var(--color-statement-shadow);
 }

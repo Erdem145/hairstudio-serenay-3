@@ -64,7 +64,7 @@
   background: linear-gradient(
     120deg,
     transparent 35%,
-    rgba(255, 255, 255, 0.22) 50%,
+    var(--color-button-sheen) 50%,
     transparent 65%
   );
   transform: translateX(-130%);
@@ -113,13 +113,13 @@
 
 /* ── Varianten op donkere achtergrond ───────────────────────────────────── */
 .secondary.onDark {
-  border-color: rgba(243, 234, 217, 0.4);
+  border-color: var(--color-light-border);
   color: var(--color-text-on-dark);
 }
 @media (hover: hover) and (pointer: fine) {
   .secondary.onDark:hover {
     border-color: var(--color-text-on-dark);
-    background-color: rgba(243, 234, 217, 0.08);
+    background-color: var(--color-light-scrim-subtle);
   }
 }
 .ghost.onDark {

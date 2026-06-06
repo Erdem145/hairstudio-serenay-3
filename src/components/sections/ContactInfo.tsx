@@ -44,9 +44,9 @@ export function ContactInfo(): JSX.Element {
           } satisfies Channel,
         ]
       : []),
-    contact.email
-      ? { icon: 'mail', label: 'E-mail', value: contact.email, href: `mailto:${contact.email}` }
-      : { icon: 'mail', label: 'E-mail', value: 'Binnenkort beschikbaar' },
+    ...(contact.email
+      ? [{ icon: 'mail', label: 'E-mail', value: contact.email, href: `mailto:${contact.email}` } satisfies Channel]
+      : []),
     {
       icon: 'mapPin',
       label: 'Adres & route',

@@ -1,5 +1,8 @@
 .marquee {
   overflow: hidden;
+  overflow: clip;
+  max-width: 100%;
+  contain: layout paint;
   border-block: 1px solid var(--hairline-gold);
   background-color: var(--color-surface-alt);
   padding-block: var(--space-4);

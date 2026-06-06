@@ -24,7 +24,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(110deg, rgba(34, 27, 22, 0.82) 0%, rgba(34, 27, 22, 0.55) 60%, rgba(34, 27, 22, 0.4) 100%);
+  background: var(--gradient-video-scrim);
 }
 
 .inner {

@@ -4,7 +4,7 @@ import type { PageSeo } from './types';
  * Per-pagina SEO-metadata (title + description + pad). Wordt door de <Seo>-
  * component in de <head> gezet, inclusief Open Graph-varianten.
  *
- * Houd titels < ~60 tekens en omschrijvingen tussen ~120–160 tekens.
+ * Houd titels < ~60 tekens en omschrijvingen tussen ~120-160 tekens.
  */
 export const pageSeo = {
   home: {
@@ -28,7 +28,7 @@ export const pageSeo = {
   portfolio: {
     title: 'Portfolio — Hairstudio Serenay',
     description:
-      'Een impressie van ons werk: coupes, kleuringen, behandelingen en opsteekkapsels van Hairstudio Serenay in Zandvoort.',
+      "Sfeer en stijl ter inspiratie bij Hairstudio Serenay in Zandvoort. Bekijk kapsels, kleuringen en opsteeklooks en volg ons voor actuele salonfoto's.",
     path: '/portfolio',
   },
   contact: {

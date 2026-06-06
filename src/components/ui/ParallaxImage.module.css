@@ -59,37 +59,37 @@
 
 /* ── Tinten (gelijk aan MediaTile) ──────────────────────────────────────── */
 .terracotta {
-  background: linear-gradient(135deg, #b9663d, #8f4622);
+  background: var(--gradient-placeholder-terracotta);
 }
 .terracotta .glyph {
   color: var(--cream);
 }
 .clay {
-  background: linear-gradient(135deg, #c98a63, #a04f2a);
+  background: var(--gradient-placeholder-clay);
 }
 .clay .glyph {
   color: var(--cream);
 }
 .olive {
-  background: linear-gradient(135deg, #6f7d44, #4c571f);
+  background: var(--gradient-placeholder-olive);
 }
 .olive .glyph {
   color: var(--cream);
 }
 .ink {
-  background: linear-gradient(135deg, #3a322b, #221d19);
+  background: var(--gradient-placeholder-ink);
 }
 .ink .glyph {
   color: var(--cream);
 }
 .sand {
-  background: linear-gradient(135deg, #efe6d6, #d8c6a6);
+  background: var(--gradient-placeholder-sand);
 }
 .sand .glyph {
   color: var(--ink);
 }
 .cream {
-  background: linear-gradient(135deg, #fbf6ec, #e9dcc6);
+  background: var(--gradient-placeholder-cream);
 }
 .cream .glyph {
   color: var(--ink);

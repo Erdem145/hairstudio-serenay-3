@@ -80,8 +80,8 @@ export function HomePage(): JSX.Element {
           <SectionHeading
             id="werk-titel"
             eyebrow="Portfolio"
-            title="Een greep uit ons werk"
-            intro="Een impressie van coupes, kleuringen en opsteekkapsels. Bekijk de volledige galerij."
+            title="Sfeerbeelden ter inspiratie"
+            intro="Bekijk kapsels, kleuringen en opsteeklooks als stijlrichting. Op Instagram delen we de actuele salonmomenten."
           />
           <div className={styles.servicesWrap}>
             <PortfolioGrid limit={4} />

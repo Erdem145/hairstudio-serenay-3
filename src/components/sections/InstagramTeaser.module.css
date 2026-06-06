@@ -26,7 +26,7 @@
   display: grid;
   place-items: center;
   color: var(--color-text-on-dark);
-  background-color: rgba(34, 29, 25, 0.32);
+  background-color: var(--color-dark-scrim);
   opacity: 0;
   transition: opacity var(--dur-base) var(--ease-standard);
 }
@@ -39,7 +39,7 @@
 @media (hover: none) {
   .overlay {
     opacity: 1;
-    background-color: rgba(34, 29, 25, 0.18);
+    background-color: var(--color-dark-scrim-soft);
   }
 }
 

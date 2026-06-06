@@ -24,23 +24,22 @@ export function ServicesPage(): JSX.Element {
         <Container width="narrow">
           <Reveal className={styles.note}>
             <Icon name="sparkles" size={22} className={styles.noteIcon} />
-            <p>
-              De tarieven worden binnenkort toegevoegd. Vraag gerust naar de actuele prijzen —
-              bel ons op{' '}
-              <a className={styles.noteLink} href={`tel:${site.contact.phoneHref}`}>
-                {site.contact.phoneDisplay}
-              </a>{' '}
-              of stuur een{' '}
-              <a
-                className={styles.noteLink}
-                href={site.contact.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp-bericht
-              </a>
-              .
-            </p>
+            <div className={styles.noteBody}>
+              <p>De tarieven worden binnenkort toegevoegd. Vraag gerust naar de actuele prijzen.</p>
+              <div className={styles.noteActions}>
+                <a className={styles.noteAction} href={`tel:${site.contact.phoneHref}`}>
+                  Bel {site.contact.phoneDisplay}
+                </a>
+                <a
+                  className={styles.noteAction}
+                  href={site.contact.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp-bericht
+                </a>
+              </div>
+            </div>
           </Reveal>
 
           <div className={styles.list}>

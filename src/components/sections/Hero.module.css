@@ -10,8 +10,8 @@
 /* Zachte, warme achtergrond die meebeweegt (parallax). */
 .heroBg {
   background:
-    radial-gradient(38% 48% at 78% 22%, rgba(160, 79, 42, 0.16), transparent 70%),
-    radial-gradient(42% 48% at 12% 88%, rgba(94, 107, 54, 0.12), transparent 70%);
+    radial-gradient(38% 48% at 78% 22%, var(--color-primary-softer), transparent 70%),
+    radial-gradient(42% 48% at 12% 88%, var(--color-accent-soft), transparent 70%);
 }
 
 /* Tweede, langzaam drijvende gloed → de achtergrond "ademt". */
@@ -19,7 +19,7 @@
   content: '';
   position: absolute;
   inset: -25%;
-  background: radial-gradient(34% 38% at 32% 34%, rgba(160, 79, 42, 0.14), transparent 70%);
+  background: radial-gradient(34% 38% at 32% 34%, var(--color-primary-soft), transparent 70%);
 }
 @media (prefers-reduced-motion: no-preference) {
   .heroBg::before {
@@ -112,7 +112,7 @@
 }
 .open {
   color: var(--olive-deep);
-  background-color: rgba(94, 107, 54, 0.12);
+  background-color: var(--color-accent-soft);
 }
 .closed {
   color: var(--color-text-muted);

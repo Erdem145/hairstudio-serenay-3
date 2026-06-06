@@ -15,7 +15,7 @@
 
 /* Subtiele, leesbare achtergrond + compactere balk zodra er gescrold wordt. */
 .scrolled {
-  background-color: rgba(247, 241, 231, 0.82);
+  background-color: var(--color-bg-glass);
   -webkit-backdrop-filter: blur(12px) saturate(1.1);
   backdrop-filter: blur(12px) saturate(1.1);
   border-bottom-color: var(--color-border);
@@ -67,6 +67,9 @@
 
 .navLink {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-text);
@@ -164,7 +167,7 @@
 .mobileMenu {
   position: fixed;
   inset: var(--header-h) 0 0 0;
-  z-index: var(--z-overlay);
+  z-index: calc(var(--z-toast) + 1);
   background-color: var(--color-bg);
   padding: var(--space-6) var(--space-5) calc(var(--space-7) + env(safe-area-inset-bottom));
   display: flex;
@@ -300,7 +303,7 @@
 }
 .open {
   color: var(--olive-deep);
-  background-color: rgba(94, 107, 54, 0.12);
+  background-color: var(--color-accent-soft);
 }
 .closed {
   color: var(--color-text-muted);

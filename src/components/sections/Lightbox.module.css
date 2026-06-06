@@ -6,7 +6,7 @@
   place-items: center;
   padding: var(--space-4);
   /* Scrim sterk genoeg om de achtergrond te isoleren. */
-  background-color: rgba(34, 29, 25, 0.78);
+  background-color: var(--color-dark-scrim-modal);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   /* Soepele enter én exit via [data-open]. */
@@ -93,7 +93,7 @@
   display: grid;
   place-items: center;
   color: var(--color-text-on-dark);
-  background-color: rgba(243, 234, 217, 0.1);
+  background-color: var(--color-light-scrim-subtle);
   border-radius: 50%;
   transition:
     transform var(--dur-fast) var(--ease-out),
@@ -106,7 +106,7 @@
 @media (hover: hover) and (pointer: fine) {
   .close:hover,
   .nav:hover {
-    background-color: rgba(243, 234, 217, 0.2);
+    background-color: var(--color-light-scrim);
   }
 }
 
