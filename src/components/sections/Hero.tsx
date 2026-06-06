@@ -52,10 +52,10 @@ export function Hero(): JSX.Element {
         <div className={styles.media} aria-hidden="true">
           {/* PLAATS HIER EIGEN FOTO'S: vul `src` in via de MediaTile (zie portfolio.ts/team.ts). */}
           {/* Twee lagen op verschillende snelheid → subtiele dieptewerking (parallax). */}
-          <Parallax speed={0.06} className={styles.tileFront}>
+          <Parallax speed={0.14} className={styles.tileFront}>
             <MediaTile alt="Sfeerbeeld van de salon" tone="terracotta" ratio="4 / 5" />
           </Parallax>
-          <Parallax speed={0.2} className={styles.tileBack}>
+          <Parallax speed={0.4} className={styles.tileBack}>
             <MediaTile alt="Detailbeeld kapsel" tone="sand" ratio="1 / 1" />
           </Parallax>
         </div>

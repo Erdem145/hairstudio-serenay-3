@@ -34,7 +34,7 @@ export function HomePage(): JSX.Element {
             </Button>
           </Reveal>
           <Reveal className={styles.splitMedia} delay={120}>
-            <Parallax speed={0.12}>
+            <Parallax speed={0.28}>
               <MediaTile alt="Sfeerbeeld van Hairstudio Serenay" tone="olive" ratio="4 / 5" />
             </Parallax>
           </Reveal>

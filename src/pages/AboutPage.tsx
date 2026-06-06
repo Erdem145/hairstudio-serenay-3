@@ -23,7 +23,7 @@ export function AboutPage(): JSX.Element {
       <Section aria-labelledby="verhaal-titel">
         <Container className={styles.story}>
           <Reveal className={styles.storyMedia}>
-            <Parallax speed={0.12}>
+            <Parallax speed={0.28}>
               <MediaTile alt="Sfeerbeeld van de salon" tone="clay" ratio="4 / 5" />
             </Parallax>
           </Reveal>
