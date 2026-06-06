@@ -19,7 +19,15 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Houd de header zelf opaak boven het open menu (overlay zit eronder). */
+.header:has(.mobileMenu[data-open='true']) {
+  background-color: var(--color-bg);
+  border-bottom-color: var(--color-border);
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: var(--space-5);
@@ -83,7 +91,7 @@
   display: none;
 }
 
-/* ── Mobiele toggle ─────────────────────────────────────────────────────── */
+/* ── Mobiele toggle: hamburger ↔ X (vloeiende morph) ────────────────────── */
 .menuToggle {
   display: inline-flex;
   align-items: center;
@@ -91,12 +99,49 @@
   width: 44px;
   height: 44px;
   margin-right: -8px;
-  color: var(--color-text);
   border-radius: var(--radius-md);
+  color: var(--color-text);
   transition: transform var(--dur-fast) var(--ease-out);
 }
 .menuToggle:active {
-  transform: scale(0.92);
+  transform: scale(0.9);
+}
+
+.bars,
+.bars::before,
+.bars::after {
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+}
+.bars {
+  position: relative;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+.bars::before,
+.bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.bars::before {
+  top: -7px;
+}
+.bars::after {
+  top: 7px;
+}
+
+/* Open → middelste balk verdwijnt, buitenste vormen een kruis. */
+.menuToggle[data-open='true'] .bars {
+  background-color: transparent;
+}
+.menuToggle[data-open='true'] .bars::before {
+  transform: translateY(7px) rotate(45deg);
+}
+.menuToggle[data-open='true'] .bars::after {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ── Mobiel menu (overlay) ──────────────────────────────────────────────── */
@@ -105,43 +150,150 @@
   inset: var(--header-h) 0 0 0;
   z-index: var(--z-overlay);
   background-color: var(--color-bg);
-  padding: var(--space-6) var(--space-5) calc(var(--space-8) + env(safe-area-inset-bottom));
+  padding: var(--space-6) var(--space-5) calc(var(--space-7) + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: var(--space-7);
   overflow-y: auto;
-  animation: menuIn var(--dur-slow) var(--ease-out);
+  overscroll-behavior: contain;
+
+  /* Gesloten staat */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-12px);
+  /* Exit: sneller dan enter (emil). visibility wacht tot de fade klaar is. */
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility 0s linear var(--dur-base);
 }
 
-@keyframes menuIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.mobileMenu[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  /* Enter: iets ruimer, en visibility meteen aan. */
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out),
+    visibility 0s;
+}
+
+.mobileNav {
+  flex-grow: 1;
 }
 
 .mobileList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+}
+
+/* Per-item stagger (alleen transform/opacity). */
+.mobileList li {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.mobileMenu[data-open='true'] .mobileList li {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.45s var(--ease-out);
+  transition-delay: calc(var(--i) * 55ms + 90ms);
 }
 
 .mobileLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
+  font-size: clamp(2rem, 1.4rem + 4vw, 2.75rem);
   font-weight: 500;
   color: var(--color-text);
-  padding-block: var(--space-2);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
   transition: color var(--dur-base) var(--ease-standard);
+}
+.mobileLinkIcon {
+  color: var(--color-border-strong);
+  transform: translateX(-4px);
+  opacity: 0;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-standard);
 }
 .mobileLinkActive {
   color: var(--color-primary);
+}
+.mobileLinkActive .mobileLinkIcon {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mobileLink:hover {
+    color: var(--color-primary);
+  }
+  .mobileLink:hover .mobileLinkIcon {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-primary);
+  }
+}
+
+/* ── Onderkant van het menu: status, adres, acties ──────────────────────── */
+.mobileFooter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.mobileMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.open {
+  color: var(--olive-deep);
+  background-color: rgba(94, 107, 54, 0.12);
+}
+.closed {
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-alt);
+}
+
+.mobileAddress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .mobileActions {
@@ -150,9 +302,34 @@
   gap: var(--space-3);
 }
 
+.mobileSocial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding-block: var(--space-2);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mobileSocial:hover {
+    color: var(--color-primary);
+  }
+}
+
+/* ── Reduced motion: geen beweging, alleen direct tonen ─────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .mobileMenu {
-    animation: none;
+  .bars::before,
+  .bars::after,
+  .mobileMenu,
+  .mobileList li {
+    transition-duration: 0.001ms;
+    transition-delay: 0ms;
+  }
+  .mobileList li {
+    transform: none;
   }
 }
 
@@ -160,12 +337,12 @@
 @media (min-width: 880px) {
   .desktopNav,
   .actions {
-    display: block;
-  }
-  .actions {
     display: flex;
   }
   .menuToggle {
+    display: none;
+  }
+  .mobileMenu {
     display: none;
   }
 }
