@@ -29,11 +29,15 @@
    het overlay nu een sibling van de header is, houden we 'm sowieso filtervrij
    wanneer hij open is. Staat ná .scrolled → overschrijft de scroll-staat. */
 .menuOpen {
+  position: fixed;
+  left: 0;
+  right: 0;
   background-color: var(--color-bg);
   border-bottom-color: var(--color-border);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
+  z-index: calc(var(--z-toast) + 2);
   --wm-scale: 1;
   --header-pad: 0rem;
 }
@@ -166,10 +170,11 @@
 /* ── Mobiel menu (overlay) ──────────────────────────────────────────────── */
 .mobileMenu {
   position: fixed;
-  inset: var(--header-h) 0 0 0;
+  inset: 0;
   z-index: calc(var(--z-toast) + 1);
   background-color: var(--color-bg);
-  padding: var(--space-6) var(--space-5) calc(var(--space-7) + env(safe-area-inset-bottom));
+  padding: calc(var(--header-h) + var(--space-6)) var(--space-5)
+    calc(var(--space-7) + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
