@@ -22,7 +22,13 @@ export function AboutPage(): JSX.Element {
       <Section aria-labelledby="verhaal-titel">
         <Container className={styles.story}>
           <Reveal className={styles.storyMedia}>
-            <ParallaxImage alt="Sfeerbeeld van de salon" tone="clay" ratio="4 / 5" strength={0.18} />
+            <ParallaxImage
+              src="/images/sfeer/verhaal.jpg"
+              alt="Sfeerbeeld van de salon"
+              tone="clay"
+              ratio="4 / 5"
+              strength={0.18}
+            />
           </Reveal>
           <Reveal className={styles.storyCopy} delay={120}>
             <h2 id="verhaal-titel" className="visually-hidden">

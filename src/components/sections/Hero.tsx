@@ -52,8 +52,10 @@ export function Hero(): JSX.Element {
 
         <div className={styles.media} aria-hidden="true">
           {/* PLAATS HIER EIGEN FOTO'S: vul `src` in via de MediaTile (zie portfolio.ts/team.ts). */}
-          {/* Vast kader, schuivend beeld → duidelijk zichtbare parallax. */}
+          {/* Vast kader, schuivend beeld → duidelijk zichtbare parallax.
+              PLACEHOLDER-foto's — vervang via src (zie public/images/sfeer/). */}
           <ParallaxImage
+            src="/images/sfeer/hero-1.jpg"
             alt="Sfeerbeeld van de salon"
             tone="terracotta"
             ratio="4 / 5"
@@ -61,6 +63,7 @@ export function Hero(): JSX.Element {
             className={styles.tileFront}
           />
           <ParallaxImage
+            src="/images/sfeer/hero-2.jpg"
             alt="Detailbeeld kapsel"
             tone="sand"
             ratio="1 / 1"

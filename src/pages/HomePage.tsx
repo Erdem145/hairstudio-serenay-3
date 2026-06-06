@@ -34,7 +34,13 @@ export function HomePage(): JSX.Element {
             </Button>
           </Reveal>
           <Reveal className={styles.splitMedia} delay={120}>
-            <ParallaxImage alt="Sfeerbeeld van Hairstudio Serenay" tone="olive" ratio="4 / 5" strength={0.18} />
+            <ParallaxImage
+              src="/images/sfeer/welkom.jpg"
+              alt="Sfeerbeeld van Hairstudio Serenay"
+              tone="olive"
+              ratio="4 / 5"
+              strength={0.18}
+            />
           </Reveal>
         </Container>
       </Section>

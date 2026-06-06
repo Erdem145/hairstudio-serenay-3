@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { CSSProperties, JSX } from 'react';
 import type { PlaceholderTone } from '../../data/types';
+import { assetUrl } from '../../lib/asset';
 import styles from './ParallaxImage.module.css';
 
 interface ParallaxImageProps {
@@ -84,7 +85,7 @@ export function ParallaxImage({
     <div ref={frameRef} className={`${styles.frame} ${className ?? ''}`} style={frameStyle}>
       <div ref={innerRef} className={styles.inner}>
         {src ? (
-          <img src={src} alt={alt} loading="lazy" decoding="async" className={styles.img} />
+          <img src={assetUrl(src)} alt={alt} loading="lazy" decoding="async" className={styles.img} />
         ) : (
           <div className={`${styles.placeholder} ${styles[tone]}`} {...semantics}>
             <span className={styles.glyph} aria-hidden="true">

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { JSX } from 'react';
 import type { GalleryImage } from '../../data/types';
+import { assetUrl } from '../../lib/asset';
 import { Icon } from '../ui/Icon';
 import { MediaTile } from '../ui/MediaTile';
 import styles from './Lightbox.module.css';
@@ -95,7 +96,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
 
         <div className={styles.media}>
           {image.src ? (
-            <img className={styles.image} src={image.src} alt={image.alt} />
+            <img className={styles.image} src={assetUrl(image.src)} alt={image.alt} />
           ) : (
             <MediaTile alt={image.alt} tone={image.tone} ratio="3 / 4" className={styles.placeholder} />
           )}
