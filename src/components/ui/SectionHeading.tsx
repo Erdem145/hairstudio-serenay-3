@@ -28,6 +28,7 @@ export function SectionHeading({
       <Heading id={id} className={styles.title}>
         {title}
       </Heading>
+      <span className={styles.rule} aria-hidden="true" />
       {intro && <p className={styles.intro}>{intro}</p>}
     </Reveal>
   );

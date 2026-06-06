@@ -4,30 +4,46 @@
   z-index: var(--z-header);
   background-color: transparent;
   border-bottom: 1px solid transparent;
+  /* Schaal-token die de wordmark krimpt bij scrollen (erft naar Wordmark). */
+  --wm-scale: 1;
+  --header-pad: 0rem;
   transition:
     background-color var(--dur-slow) var(--ease-standard),
     border-color var(--dur-slow) var(--ease-standard),
     box-shadow var(--dur-slow) var(--ease-standard);
 }
 
-/* Subtiele, leesbare achtergrond zodra er gescrold wordt. */
+/* Subtiele, leesbare achtergrond + compactere balk zodra er gescrold wordt. */
 .scrolled {
-  background-color: rgba(247, 241, 231, 0.85);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background-color: rgba(247, 241, 231, 0.82);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  backdrop-filter: blur(12px) saturate(1.1);
   border-bottom-color: var(--color-border);
   box-shadow: var(--shadow-sm);
+  --wm-scale: 0.9;
+  --header-pad: -0.55rem;
+}
+
+/* Houd de header zelf opaak boven het open menu (overlay zit eronder). */
+.header:has(.mobileMenu[data-open='true']) {
+  background-color: var(--color-bg);
+  border-bottom-color: var(--color-border);
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: var(--space-5);
-  min-height: var(--header-h);
+  /* Krimpt soepel mee bij scrollen via --header-pad. */
+  min-height: calc(var(--header-h) + var(--header-pad) * 2);
+  padding-block: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
+  transition: min-height var(--dur-slow) var(--ease-standard);
 }
 
 /* ── Desktop-navigatie ──────────────────────────────────────────────────── */
@@ -83,7 +99,7 @@
   display: none;
 }
 
-/* ── Mobiele toggle ─────────────────────────────────────────────────────── */
+/* ── Mobiele toggle: hamburger ↔ X (vloeiende morph) ────────────────────── */
 .menuToggle {
   display: inline-flex;
   align-items: center;
@@ -91,12 +107,49 @@
   width: 44px;
   height: 44px;
   margin-right: -8px;
-  color: var(--color-text);
   border-radius: var(--radius-md);
+  color: var(--color-text);
   transition: transform var(--dur-fast) var(--ease-out);
 }
 .menuToggle:active {
-  transform: scale(0.92);
+  transform: scale(0.9);
+}
+
+.bars,
+.bars::before,
+.bars::after {
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: currentColor;
+}
+.bars {
+  position: relative;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+.bars::before,
+.bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.bars::before {
+  top: -7px;
+}
+.bars::after {
+  top: 7px;
+}
+
+/* Open → middelste balk verdwijnt, buitenste vormen een kruis. */
+.menuToggle[data-open='true'] .bars {
+  background-color: transparent;
+}
+.menuToggle[data-open='true'] .bars::before {
+  transform: translateY(7px) rotate(45deg);
+}
+.menuToggle[data-open='true'] .bars::after {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ── Mobiel menu (overlay) ──────────────────────────────────────────────── */
@@ -105,43 +158,151 @@
   inset: var(--header-h) 0 0 0;
   z-index: var(--z-overlay);
   background-color: var(--color-bg);
-  padding: var(--space-6) var(--space-5) calc(var(--space-8) + env(safe-area-inset-bottom));
+  padding: var(--space-6) var(--space-5) calc(var(--space-7) + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: var(--space-7);
   overflow-y: auto;
-  animation: menuIn var(--dur-slow) var(--ease-out);
+  overscroll-behavior: contain;
+
+  /* Gesloten staat — exit speelt soepel af (panel schuift weg terwijl de items
+     in omgekeerde volgorde uitcascaden). visibility wacht tot het einde. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition:
+    opacity 360ms var(--ease-out),
+    transform 360ms var(--ease-out),
+    visibility 0s linear 360ms;
 }
 
-@keyframes menuIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.mobileMenu[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out),
+    visibility 0s;
+}
+
+.mobileNav {
+  flex-grow: 1;
 }
 
 .mobileList {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+}
+
+/* Per-item stagger (alleen transform/opacity).
+   Exit = omgekeerde volgorde (laatste item verdwijnt eerst) → spiegelt het openen. */
+.mobileList li {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
+  transition-delay: calc((var(--n, 5) - 1 - var(--i)) * 40ms);
+}
+.mobileMenu[data-open='true'] .mobileList li {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 450ms var(--ease-out),
+    transform 450ms var(--ease-out);
+  transition-delay: calc(var(--i) * 55ms + 90ms);
 }
 
 .mobileLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
+  font-size: clamp(2rem, 1.4rem + 4vw, 2.75rem);
   font-weight: 500;
   color: var(--color-text);
-  padding-block: var(--space-2);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
   transition: color var(--dur-base) var(--ease-standard);
+}
+.mobileLinkIcon {
+  color: var(--color-border-strong);
+  transform: translateX(-4px);
+  opacity: 0;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    opacity var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-standard);
 }
 .mobileLinkActive {
   color: var(--color-primary);
+}
+.mobileLinkActive .mobileLinkIcon {
+  color: var(--color-primary);
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mobileLink:hover {
+    color: var(--color-primary);
+  }
+  .mobileLink:hover .mobileLinkIcon {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-primary);
+  }
+}
+
+/* ── Onderkant van het menu: status, adres, acties ──────────────────────── */
+.mobileFooter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.mobileMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.open {
+  color: var(--olive-deep);
+  background-color: rgba(94, 107, 54, 0.12);
+}
+.closed {
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-alt);
+}
+
+.mobileAddress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .mobileActions {
@@ -150,9 +311,34 @@
   gap: var(--space-3);
 }
 
+.mobileSocial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding-block: var(--space-2);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .mobileSocial:hover {
+    color: var(--color-primary);
+  }
+}
+
+/* ── Reduced motion: geen beweging, alleen direct tonen ─────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .mobileMenu {
-    animation: none;
+  .bars::before,
+  .bars::after,
+  .mobileMenu,
+  .mobileList li {
+    transition-duration: 0.001ms;
+    transition-delay: 0ms;
+  }
+  .mobileList li {
+    transform: none;
   }
 }
 
@@ -160,12 +346,12 @@
 @media (min-width: 880px) {
   .desktopNav,
   .actions {
-    display: block;
-  }
-  .actions {
     display: flex;
   }
   .menuToggle {
+    display: none;
+  }
+  .mobileMenu {
     display: none;
   }
 }

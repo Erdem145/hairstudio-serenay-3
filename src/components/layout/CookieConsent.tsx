@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { JSX } from 'react';
 import { getMapsConsent, setMapsConsent } from '../../lib/consent';
+import { usePresence } from '../../lib/usePresence';
 import { Button } from '../ui/Button';
 import styles from './CookieConsent.module.css';
 
@@ -11,8 +12,9 @@ import styles from './CookieConsent.module.css';
  */
 export function CookieConsent(): JSX.Element | null {
   const [decided, setDecided] = useState(() => getMapsConsent() !== null);
+  const { mounted, open } = usePresence(!decided, 300);
 
-  if (decided) return null;
+  if (!mounted) return null;
 
   const choose = (value: 'granted' | 'denied'): void => {
     setMapsConsent(value);
@@ -22,6 +24,7 @@ export function CookieConsent(): JSX.Element | null {
   return (
     <div
       className={styles.banner}
+      data-open={open}
       role="dialog"
       aria-modal="false"
       aria-labelledby="consent-titel"

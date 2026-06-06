@@ -5,7 +5,7 @@ import { Section } from '../components/ui/Section';
 import { Container } from '../components/ui/Container';
 import { Reveal } from '../components/ui/Reveal';
 import { Icon } from '../components/ui/Icon';
-import { MediaTile } from '../components/ui/MediaTile';
+import { ParallaxImage } from '../components/ui/ParallaxImage';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHeader } from '../components/sections/PageHeader';
 import { TeamGrid } from '../components/sections/TeamGrid';
@@ -21,10 +21,17 @@ export function AboutPage(): JSX.Element {
       {/* Verhaal + beeld */}
       <Section aria-labelledby="verhaal-titel">
         <Container className={styles.story}>
-          <Reveal className={styles.storyMedia}>
-            <MediaTile alt="Sfeerbeeld van de salon" tone="clay" ratio="4 / 5" />
+          <Reveal className={styles.storyMedia} from="left">
+            <ParallaxImage
+              src="/images/sfeer/verhaal.jpg"
+              alt="Sfeerbeeld van de salon"
+              tone="clay"
+              ratio="4 / 5"
+              strength={0.18}
+              kenBurns
+            />
           </Reveal>
-          <Reveal className={styles.storyCopy} delay={120}>
+          <Reveal className={styles.storyCopy} delay={120} from="right">
             <h2 id="verhaal-titel" className="visually-hidden">
               Ons verhaal
             </h2>

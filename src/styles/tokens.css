@@ -92,11 +92,18 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Luxe, "boutique" ease-out met een lange staart voor sierlijke reveals. */
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
 
   --dur-fast: 140ms;
   --dur-base: 200ms;
   --dur-slow: 300ms;
-  --dur-reveal: 600ms;
+  --dur-reveal: 700ms;
+  --dur-slower: 1000ms;
+
+  /* Fijne goud-hairline voor sierlijke scheidingen/accenten. */
+  --hairline-gold: rgba(154, 123, 63, 0.4);
+  --shadow-hover: 0 30px 70px -26px rgba(42, 36, 32, 0.3);
 
   /* ── Layout ─────────────────────────────────────────────────────────────── */
   --container: 1200px;

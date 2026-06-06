@@ -15,6 +15,32 @@
   font-size: var(--text-3xl);
 }
 
+/* Sierlijke goud-hairline die "intekent" zodra de kop in beeld komt. */
+.rule {
+  width: 3.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-slower) var(--ease-lux);
+  transition-delay: 220ms;
+}
+.center .rule {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform-origin: center;
+}
+:global(.reveal.is-visible) .rule {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rule {
+    transition: none;
+    transform: scaleX(1);
+  }
+}
+
 .intro {
   color: var(--color-text-muted);
   font-size: var(--text-lg);

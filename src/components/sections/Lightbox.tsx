@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { JSX } from 'react';
 import type { GalleryImage } from '../../data/types';
+import { assetUrl } from '../../lib/asset';
 import { Icon } from '../ui/Icon';
 import { MediaTile } from '../ui/MediaTile';
 import styles from './Lightbox.module.css';
@@ -8,6 +9,8 @@ import styles from './Lightbox.module.css';
 interface LightboxProps {
   images: readonly GalleryImage[];
   index: number;
+  /** Stuurt de enter/exit-transitie (blijft gemonteerd tijdens het sluiten). */
+  open: boolean;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
@@ -17,7 +20,7 @@ interface LightboxProps {
  * Toegankelijke lightbox: pijltjestoetsen navigeren, Escape sluit, focus blijft
  * binnen de dialoog. Modaal blijft gecentreerd (transform-origin center).
  */
-export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps): JSX.Element {
+export function Lightbox({ images, index, open, onClose, onPrev, onNext }: LightboxProps): JSX.Element {
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const image = images[index];
@@ -74,6 +77,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
   return (
     <div
       className={styles.backdrop}
+      data-open={open}
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
@@ -95,7 +99,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
 
         <div className={styles.media}>
           {image.src ? (
-            <img className={styles.image} src={image.src} alt={image.alt} />
+            <img className={styles.image} src={assetUrl(image.src)} alt={image.alt} />
           ) : (
             <MediaTile alt={image.alt} tone={image.tone} ratio="3 / 4" className={styles.placeholder} />
           )}

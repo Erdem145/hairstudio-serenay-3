@@ -1,5 +1,6 @@
 import type { CSSProperties, JSX } from 'react';
 import type { PlaceholderTone } from '../../data/types';
+import { assetUrl } from '../../lib/asset';
 import styles from './MediaTile.module.css';
 
 interface MediaTileProps {
@@ -27,7 +28,7 @@ export function MediaTile({ src, alt, tone, ratio = '4 / 5', className }: MediaT
   if (src) {
     return (
       <div className={wrapperClass} style={style}>
-        <img src={src} alt={alt} loading="lazy" decoding="async" className={styles.image} />
+        <img src={assetUrl(src)} alt={alt} loading="lazy" decoding="async" className={styles.image} />
       </div>
     );
   }

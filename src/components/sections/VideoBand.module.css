@@ -1,0 +1,69 @@
+.band {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(26rem, 60vh, 44rem);
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-on-dark);
+  padding-block: var(--section-y);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Donkere scrim voor leesbaarheid van de tekst (WCAG). */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(110deg, rgba(34, 27, 22, 0.82) 0%, rgba(34, 27, 22, 0.55) 60%, rgba(34, 27, 22, 0.4) 100%);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  max-width: 34rem;
+}
+
+.eyebrow {
+  color: var(--gold);
+}
+
+.text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+/* Logo op een lichte chip → officieel zwart woordmerk blijft correct (geen recolor). */
+.logoChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  box-shadow: var(--shadow-md);
+}
+
+.logo {
+  height: 1.85rem;
+  width: auto;
+}

@@ -162,6 +162,17 @@ export interface GalleryImage {
   readonly tone: PlaceholderTone;
 }
 
+/* ── Merkpartner ─────────────────────────────────────────────────────────── */
+
+export interface Partner {
+  readonly name: string;
+  readonly label: string;
+  /** Pad naar het logo in /public/images/partners. */
+  readonly logo: string;
+  readonly alt: string;
+  readonly description: string;
+}
+
 /* ── SEO ─────────────────────────────────────────────────────────────────── */
 
 export interface PageSeo {

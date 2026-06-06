@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import type { JSX } from 'react';
+import type { CSSProperties, JSX } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { navigation, site } from '../../data';
+import { navigation, openingHours, site } from '../../data';
+import { formatAddressLine, getOpenStatus } from '../../lib/format';
 import { Icon } from '../ui/Icon';
 import { Button } from '../ui/Button';
 import { Wordmark } from './Wordmark';
@@ -13,6 +14,8 @@ export function Header(): JSX.Element {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const { pathname } = useLocation();
+  const status = getOpenStatus(openingHours);
+  const instagram = site.socials.find((social) => social.platform === 'Instagram');
 
   // Subtiele achtergrond zodra de bezoeker scrollt.
   useEffect(() => {
@@ -84,46 +87,77 @@ export function Header(): JSX.Element {
           ref={toggleRef}
           type="button"
           className={styles.menuToggle}
+          data-open={menuOpen}
           aria-expanded={menuOpen}
           aria-controls="mobiel-menu"
           aria-label={menuOpen ? 'Menu sluiten' : 'Menu openen'}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <Icon name={menuOpen ? 'close' : 'menu'} size={26} />
+          <span className={styles.bars} aria-hidden="true" />
         </button>
       </div>
 
-      {menuOpen && (
-        <div className={styles.mobileMenu} id="mobiel-menu">
-          <nav aria-label="Mobiele navigatie">
-            <ul className={styles.mobileList}>
-              {navigation.map((link, index) => (
-                <li key={link.to}>
-                  <NavLink
-                    ref={index === 0 ? firstLinkRef : undefined}
-                    to={link.to}
-                    end={link.to === '/'}
-                    onClick={closeMenu}
-                    className={({ isActive }) =>
-                      `${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ''}`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
+      {/* Altijd gemonteerd → onderbreekbare enter/exit-transities (emil-design-eng). */}
+      <div
+        className={styles.mobileMenu}
+        data-open={menuOpen}
+        id="mobiel-menu"
+        aria-hidden={!menuOpen}
+        style={{ '--n': navigation.length } as CSSProperties}
+      >
+        <nav className={styles.mobileNav} aria-label="Mobiele navigatie">
+          <ul className={styles.mobileList}>
+            {navigation.map((link, index) => (
+              <li key={link.to} style={{ '--i': index } as CSSProperties}>
+                <NavLink
+                  ref={index === 0 ? firstLinkRef : undefined}
+                  to={link.to}
+                  end={link.to === '/'}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ''}`
+                  }
+                >
+                  <span>{link.label}</span>
+                  <Icon name="arrowUpRight" size={22} className={styles.mobileLinkIcon} />
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className={styles.mobileFooter}>
+          <div className={styles.mobileMeta}>
+            <span className={`${styles.statusPill} ${status.isOpen ? styles.open : styles.closed}`}>
+              <span className={styles.dot} aria-hidden="true" />
+              {status.label}
+            </span>
+            <span className={styles.mobileAddress}>
+              <Icon name="mapPin" size={16} />
+              {formatAddressLine(site.address)}
+            </span>
+          </div>
           <div className={styles.mobileActions}>
             <Button href={`tel:${site.contact.phoneHref}`} icon="phone" iconPosition="start" fullWidth>
               Bel {site.contact.phoneDisplay}
             </Button>
             <Button href={site.contact.whatsappHref} variant="secondary" icon="whatsapp" iconPosition="start" fullWidth>
-              WhatsApp
+              WhatsApp ons
             </Button>
+            {instagram && (
+              <a
+                className={styles.mobileSocial}
+                href={instagram.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="instagram" size={20} />
+                {instagram.label}
+              </a>
+            )}
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

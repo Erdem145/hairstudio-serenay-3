@@ -125,20 +125,44 @@ p {
 }
 
 /* ── Reveal-on-scroll (centraal animatiesysteem) ────────────────────────── */
-/* Eén consistente aanpak: alleen transform + opacity, custom ease-out,
-   optionele stagger via --reveal-delay. */
+/* Eén consistente aanpak: alleen transform + opacity, luxe ease-out,
+   richtingvarianten via [data-from], optionele stagger via --reveal-delay. */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
   transition:
-    opacity var(--dur-reveal) var(--ease-out),
-    transform var(--dur-reveal) var(--ease-out);
+    opacity var(--dur-reveal) var(--ease-lux),
+    transform var(--dur-reveal) var(--ease-lux);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
+.reveal[data-from='up'] {
+  transform: translateY(26px);
+}
+.reveal[data-from='left'] {
+  transform: translateX(-34px);
+}
+.reveal[data-from='right'] {
+  transform: translateX(34px);
+}
+.reveal[data-from='scale'] {
+  transform: scale(0.93);
+}
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+/* ── Filmische grain-textuur (subtiel, decoratief, statisch) ────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  /* Geen mix-blend-mode → goedkoop te compositen, geen scroll-jank op mobiel. */
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
 }
 
 /* ── Hulpklassen ────────────────────────────────────────────────────────── */
@@ -165,9 +189,11 @@ p {
   html {
     scroll-behavior: auto;
   }
-  /* Schakel beweging uit; behoud een korte fade voor begrijpelijkheid. */
-  .reveal {
-    transform: none;
+  /* Schakel beweging uit; behoud een korte fade voor begrijpelijkheid.
+     !important overschrijft de [data-from]-transformaties. */
+  .reveal,
+  .reveal[data-from] {
+    transform: none !important;
     transition: opacity var(--dur-base) var(--ease-standard);
   }
   *,
