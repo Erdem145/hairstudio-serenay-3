@@ -4,17 +4,11 @@
   overflow: hidden;
 }
 
-/* Zachte, warme achtergrondgloed achter de tekst. */
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 55%;
-  height: 120%;
-  background: radial-gradient(circle at center, rgba(160, 79, 42, 0.1), transparent 65%);
-  pointer-events: none;
-  z-index: 0;
+/* Zachte, warme achtergrond die meebeweegt (parallax). */
+.heroBg {
+  background:
+    radial-gradient(38% 48% at 78% 22%, rgba(160, 79, 42, 0.16), transparent 70%),
+    radial-gradient(42% 48% at 12% 88%, rgba(94, 107, 54, 0.12), transparent 70%);
 }
 
 .inner {

@@ -1,0 +1,50 @@
+.band {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(135deg, #a04f2a 0%, #7c3a1d 100%);
+  color: var(--color-text-on-dark);
+  padding-block: clamp(5rem, 3rem + 10vw, 9rem);
+}
+
+/* De parallaxende laag: subtiele glans + groot woordmerk. */
+.bg {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(40% 55% at 28% 18%, rgba(247, 241, 231, 0.12), transparent 60%),
+    radial-gradient(45% 55% at 82% 92%, rgba(0, 0, 0, 0.22), transparent 60%);
+}
+
+.monogram {
+  font-family: var(--font-display);
+  font-size: clamp(9rem, 32vw, 24rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(247, 241, 231, 0.09);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.eyebrow {
+  justify-content: center;
+  color: rgba(247, 241, 231, 0.78);
+}
+
+.quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.85rem, 1.2rem + 3.4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.18;
+  text-wrap: balance;
+  max-width: 22ch;
+  margin: var(--space-3) auto 0;
+}

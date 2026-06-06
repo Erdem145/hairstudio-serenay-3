@@ -9,6 +9,7 @@ import { ParallaxImage } from '../components/ui/ParallaxImage';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Icon } from '../components/ui/Icon';
 import { Hero } from '../components/sections/Hero';
+import { StatementBand } from '../components/sections/StatementBand';
 import { ServicesPreview } from '../components/sections/ServicesPreview';
 import { PortfolioGrid } from '../components/sections/PortfolioGrid';
 import { HoursCard } from '../components/sections/HoursCard';
@@ -58,6 +59,9 @@ export function HomePage(): JSX.Element {
           </Reveal>
         </Container>
       </Section>
+
+      {/* Sfeerband met achtergrond-parallax */}
+      <StatementBand />
 
       {/* Portfolio-teaser */}
       <Section aria-labelledby="werk-titel">

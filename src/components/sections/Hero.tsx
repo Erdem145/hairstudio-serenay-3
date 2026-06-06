@@ -5,6 +5,7 @@ import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { ParallaxImage } from '../ui/ParallaxImage';
+import { ParallaxBg } from '../ui/ParallaxBg';
 import styles from './Hero.module.css';
 
 /** Hero van de homepagina: introductie, status en visuele blikvanger. */
@@ -13,6 +14,7 @@ export function Hero(): JSX.Element {
 
   return (
     <section className={styles.hero} aria-labelledby="hero-titel">
+      <ParallaxBg strength={0.15} className={styles.heroBg} />
       <Container className={styles.inner}>
         <div className={styles.copy}>
           <span className={`eyebrow ${styles.eyebrow}`}>
