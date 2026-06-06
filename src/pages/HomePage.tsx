@@ -10,6 +10,7 @@ import { SectionHeading } from '../components/ui/SectionHeading';
 import { Icon } from '../components/ui/Icon';
 import { Hero } from '../components/sections/Hero';
 import { StatementBand } from '../components/sections/StatementBand';
+import { VideoBand } from '../components/sections/VideoBand';
 import { ServicesPreview } from '../components/sections/ServicesPreview';
 import { PortfolioGrid } from '../components/sections/PortfolioGrid';
 import { HoursCard } from '../components/sections/HoursCard';
@@ -88,6 +89,9 @@ export function HomePage(): JSX.Element {
           </Reveal>
         </Container>
       </Section>
+
+      {/* L'Oréal partner + sfeervideo */}
+      <VideoBand />
 
       {/* Bezoek plannen: openingstijden + contact */}
       <Section surface="sand" aria-labelledby="bezoek-titel">

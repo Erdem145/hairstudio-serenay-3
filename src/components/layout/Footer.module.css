@@ -46,6 +46,36 @@
   }
 }
 
+.partner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.partnerLabel {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.partnerChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.partnerLogo {
+  height: 1.5rem;
+  width: auto;
+}
+
 .colTitle {
   font-family: var(--font-body);
   font-size: var(--text-xs);
