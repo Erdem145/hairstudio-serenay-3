@@ -5,8 +5,7 @@ import { Section } from '../components/ui/Section';
 import { Container } from '../components/ui/Container';
 import { Reveal } from '../components/ui/Reveal';
 import { Button } from '../components/ui/Button';
-import { MediaTile } from '../components/ui/MediaTile';
-import { Parallax } from '../components/ui/Parallax';
+import { ParallaxImage } from '../components/ui/ParallaxImage';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Icon } from '../components/ui/Icon';
 import { Hero } from '../components/sections/Hero';
@@ -34,9 +33,7 @@ export function HomePage(): JSX.Element {
             </Button>
           </Reveal>
           <Reveal className={styles.splitMedia} delay={120}>
-            <Parallax speed={0.28}>
-              <MediaTile alt="Sfeerbeeld van Hairstudio Serenay" tone="olive" ratio="4 / 5" />
-            </Parallax>
+            <ParallaxImage alt="Sfeerbeeld van Hairstudio Serenay" tone="olive" ratio="4 / 5" strength={0.18} />
           </Reveal>
         </Container>
       </Section>

@@ -4,8 +4,7 @@ import { formatAddressLine, getOpenStatus } from '../../lib/format';
 import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
-import { MediaTile } from '../ui/MediaTile';
-import { Parallax } from '../ui/Parallax';
+import { ParallaxImage } from '../ui/ParallaxImage';
 import styles from './Hero.module.css';
 
 /** Hero van de homepagina: introductie, status en visuele blikvanger. */
@@ -51,13 +50,21 @@ export function Hero(): JSX.Element {
 
         <div className={styles.media} aria-hidden="true">
           {/* PLAATS HIER EIGEN FOTO'S: vul `src` in via de MediaTile (zie portfolio.ts/team.ts). */}
-          {/* Twee lagen op verschillende snelheid → subtiele dieptewerking (parallax). */}
-          <Parallax speed={0.14} className={styles.tileFront}>
-            <MediaTile alt="Sfeerbeeld van de salon" tone="terracotta" ratio="4 / 5" />
-          </Parallax>
-          <Parallax speed={0.4} className={styles.tileBack}>
-            <MediaTile alt="Detailbeeld kapsel" tone="sand" ratio="1 / 1" />
-          </Parallax>
+          {/* Vast kader, schuivend beeld → duidelijk zichtbare parallax. */}
+          <ParallaxImage
+            alt="Sfeerbeeld van de salon"
+            tone="terracotta"
+            ratio="4 / 5"
+            strength={0.16}
+            className={styles.tileFront}
+          />
+          <ParallaxImage
+            alt="Detailbeeld kapsel"
+            tone="sand"
+            ratio="1 / 1"
+            strength={0.18}
+            className={styles.tileBack}
+          />
         </div>
       </Container>
     </section>

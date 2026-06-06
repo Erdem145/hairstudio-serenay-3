@@ -1,4 +1,0 @@
-.parallax {
-  /* Tip aan de browser dat transform gaat veranderen (GPU-laag). */
-  will-change: transform;
-}

@@ -5,8 +5,7 @@ import { Section } from '../components/ui/Section';
 import { Container } from '../components/ui/Container';
 import { Reveal } from '../components/ui/Reveal';
 import { Icon } from '../components/ui/Icon';
-import { MediaTile } from '../components/ui/MediaTile';
-import { Parallax } from '../components/ui/Parallax';
+import { ParallaxImage } from '../components/ui/ParallaxImage';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { PageHeader } from '../components/sections/PageHeader';
 import { TeamGrid } from '../components/sections/TeamGrid';
@@ -23,9 +22,7 @@ export function AboutPage(): JSX.Element {
       <Section aria-labelledby="verhaal-titel">
         <Container className={styles.story}>
           <Reveal className={styles.storyMedia}>
-            <Parallax speed={0.28}>
-              <MediaTile alt="Sfeerbeeld van de salon" tone="clay" ratio="4 / 5" />
-            </Parallax>
+            <ParallaxImage alt="Sfeerbeeld van de salon" tone="clay" ratio="4 / 5" strength={0.18} />
           </Reveal>
           <Reveal className={styles.storyCopy} delay={120}>
             <h2 id="verhaal-titel" className="visually-hidden">
