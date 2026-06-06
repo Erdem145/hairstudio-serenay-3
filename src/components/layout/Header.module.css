@@ -1,0 +1,171 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--dur-slow) var(--ease-standard),
+    border-color var(--dur-slow) var(--ease-standard),
+    box-shadow var(--dur-slow) var(--ease-standard);
+}
+
+/* Subtiele, leesbare achtergrond zodra er gescrold wordt. */
+.scrolled {
+  background-color: rgba(247, 241, 231, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  min-height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* ── Desktop-navigatie ──────────────────────────────────────────────────── */
+.desktopNav {
+  display: none;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.navLink {
+  position: relative;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  padding-block: var(--space-2);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+
+/* Onderstreping die in-/uitschuift; alleen transform → goedkoop. */
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover {
+    color: var(--color-primary);
+  }
+  .navLink:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.navLinkActive {
+  color: var(--color-primary);
+}
+.navLinkActive::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: none;
+}
+
+/* ── Mobiele toggle ─────────────────────────────────────────────────────── */
+.menuToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -8px;
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.menuToggle:active {
+  transform: scale(0.92);
+}
+
+/* ── Mobiel menu (overlay) ──────────────────────────────────────────────── */
+.mobileMenu {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  z-index: var(--z-overlay);
+  background-color: var(--color-bg);
+  padding: var(--space-6) var(--space-5) calc(var(--space-8) + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-7);
+  overflow-y: auto;
+  animation: menuIn var(--dur-slow) var(--ease-out);
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mobileLink {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  color: var(--color-text);
+  padding-block: var(--space-2);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+.mobileLinkActive {
+  color: var(--color-primary);
+}
+
+.mobileActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenu {
+    animation: none;
+  }
+}
+
+/* ── Desktop-breakpoint ─────────────────────────────────────────────────── */
+@media (min-width: 880px) {
+  .desktopNav,
+  .actions {
+    display: block;
+  }
+  .actions {
+    display: flex;
+  }
+  .menuToggle {
+    display: none;
+  }
+}

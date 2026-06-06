@@ -1,0 +1,18 @@
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.sand {
+  background-color: var(--color-surface-alt);
+}
+
+.dark {
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-on-dark);
+}
+
+/* Koppen binnen een donkere sectie nemen de lichte tekstkleur over. */
+.dark :is(h1, h2, h3, h4) {
+  color: var(--color-text-on-dark);
+}

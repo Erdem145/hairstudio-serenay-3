@@ -1,0 +1,4 @@
+# SPA-fallback voor client-side routing (react-router).
+# Alle onbekende paden worden door index.html afgehandeld; React Router toont
+# vervolgens de juiste pagina (of de nette 404-pagina).
+/*    /index.html    200

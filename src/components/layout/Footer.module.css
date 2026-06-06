@@ -1,0 +1,129 @@
+.footer {
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-on-dark-muted);
+  padding-top: var(--space-9);
+}
+
+.inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-7);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 30rem;
+}
+
+.description {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-on-dark-muted);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .socialLink:hover {
+    color: var(--gold);
+  }
+}
+
+.colTitle {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--space-4);
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.link {
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--gold);
+  }
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-style: normal;
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark);
+  margin-bottom: var(--space-4);
+}
+
+.hoursList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.hoursRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark);
+  /* Tabular cijfers houden de tijden netjes uitgelijnd. */
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--color-text-on-dark-muted);
+}
+
+.bottom {
+  max-width: var(--container);
+  margin: var(--space-8) auto 0;
+  padding: var(--space-5);
+  border-top: 1px solid rgba(243, 234, 217, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+}
+
+@media (min-width: 600px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 980px) {
+  .inner {
+    grid-template-columns: 2fr 1fr 1.2fr 1.2fr;
+    gap: var(--space-6);
+  }
+}

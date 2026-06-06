@@ -1,0 +1,74 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+.tile:active {
+  transform: scale(0.98);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.media {
+  border-radius: var(--radius-lg);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover .media {
+    transform: scale(1.04);
+  }
+}
+
+/* Leesbaarheidsverloop onderaan met onderschrift. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: var(--space-4);
+  text-align: left;
+  background: linear-gradient(to top, rgba(34, 29, 25, 0.7), rgba(34, 29, 25, 0) 55%);
+  pointer-events: none;
+}
+
+.category {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.caption {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-text-on-dark);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

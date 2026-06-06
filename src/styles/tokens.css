@@ -1,0 +1,112 @@
+/**
+ * Design tokens — de enige plek waar kleuren, ritme, typografie en motion
+ * worden gedefinieerd. Componenten verwijzen uitsluitend naar deze variabelen,
+ * nooit naar ruwe hex-waarden.
+ *
+ * Stijl: "Nature Distilled" (warm-aards editorial) — ui-ux-pro-max.
+ * Alle tekst/achtergrond-combinaties zijn geverifieerd op WCAG AA-contrast.
+ */
+
+:root {
+  /* ── Merkpalet (ruwe waarden) ───────────────────────────────────────────── */
+  --cream: #f7f1e7;
+  --sand: #efe6d6;
+  --sand-deep: #e3d6c0;
+  --card: #fffefb;
+  --ink: #2a2420;
+  --ink-soft: #6b5e50;
+  --terracotta: #a04f2a;
+  --terracotta-deep: #8f4622;
+  --olive: #5e6b36;
+  --olive-deep: #4c571f;
+  --gold: #9a7b3f;
+  --white: #ffffff;
+
+  /* ── Semantische tokens ─────────────────────────────────────────────────── */
+  --color-bg: var(--cream);
+  --color-surface: var(--card);
+  --color-surface-alt: var(--sand);
+  --color-surface-dark: #221d19;
+  --color-text: var(--ink);
+  --color-text-muted: var(--ink-soft);
+  --color-text-on-dark: #f3ead9;
+  --color-text-on-dark-muted: #c9b9a3;
+  --color-primary: var(--terracotta);
+  --color-primary-hover: var(--terracotta-deep);
+  --color-on-primary: var(--white);
+  --color-accent: var(--olive-deep);
+  --color-border: var(--sand-deep);
+  --color-border-strong: #d4c3a6;
+  --color-ring: var(--terracotta);
+
+  /* ── Typografie ─────────────────────────────────────────────────────────── */
+  --font-display: 'Cormorant Variable', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --text-xs: 0.8125rem;   /* 13px */
+  --text-sm: 0.9375rem;   /* 15px */
+  --text-base: 1.0625rem; /* 17px */
+  --text-lg: 1.1875rem;   /* 19px */
+  --text-xl: 1.375rem;    /* 22px */
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  --text-3xl: clamp(2rem, 1.55rem + 2.2vw, 3rem);
+  --text-4xl: clamp(2.5rem, 1.85rem + 3.2vw, 4.25rem);
+  --text-hero: clamp(2.75rem, 1.4rem + 6.2vw, 6rem);
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.01em;
+  --tracking-wide: 0.04em;
+  --tracking-widest: 0.18em;
+
+  /* ── Ruimte (4 / 8 ritme) ───────────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* Verticaal sectie-ritme (responsief). */
+  --section-y: clamp(3.5rem, 2rem + 7vw, 7rem);
+
+  /* ── Vorm & schaduw (zacht, natuurlijk) ─────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(42, 36, 32, 0.05), 0 1px 3px rgba(42, 36, 32, 0.05);
+  --shadow-md: 0 6px 20px -6px rgba(42, 36, 32, 0.12), 0 2px 6px rgba(42, 36, 32, 0.05);
+  --shadow-lg: 0 24px 60px -18px rgba(42, 36, 32, 0.24);
+
+  /* ── Motion (emil-design-eng) ───────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --dur-fast: 140ms;
+  --dur-base: 200ms;
+  --dur-slow: 300ms;
+  --dur-reveal: 600ms;
+
+  /* ── Layout ─────────────────────────────────────────────────────────────── */
+  --container: 1200px;
+  --container-narrow: 760px;
+  --header-h: 4.5rem;
+
+  /* ── z-index-schaal ─────────────────────────────────────────────────────── */
+  --z-base: 1;
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}

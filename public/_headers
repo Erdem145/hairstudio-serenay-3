@@ -1,0 +1,24 @@
+# Aanbevolen HTTP-securityheaders voor Netlify / Cloudflare Pages.
+# Deze map (/public) wordt 1-op-1 mee gepubliceerd; dit bestand wordt door
+# Netlify/Cloudflare automatisch ingelezen.
+#
+# De Content-Security-Policy hieronder is de gezaghebbende (header) variant en
+# bevat ook frame-ancestors — die werkt NIET via de <meta>-tag in index.html.
+
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  X-DNS-Prefetch-Control: off
+
+# Gehashte assets mogen lang gecachet worden (immutable).
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted lettertypes: lang cachen.
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable

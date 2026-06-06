@@ -1,0 +1,163 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  /* Scrim sterk genoeg om de achtergrond te isoleren. */
+  background-color: rgba(34, 29, 25, 0.78);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: backdropIn var(--dur-base) var(--ease-out);
+}
+
+.dialog {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 56rem;
+  animation: dialogIn var(--dur-slow) var(--ease-out);
+}
+
+.media {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.image,
+.placeholder {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  margin-inline: auto;
+}
+.placeholder {
+  max-width: 28rem;
+}
+
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  color: var(--color-text-on-dark);
+  text-align: center;
+  justify-content: center;
+}
+
+.category {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.captionText {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+}
+
+.counter {
+  font-size: var(--text-sm);
+  color: var(--color-text-on-dark-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Knoppen ────────────────────────────────────────────────────────────── */
+.close,
+.nav {
+  display: grid;
+  place-items: center;
+  color: var(--color-text-on-dark);
+  background-color: rgba(243, 234, 217, 0.1);
+  border-radius: 50%;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-base) var(--ease-standard);
+}
+.close:active,
+.nav:active {
+  transform: scale(0.92);
+}
+@media (hover: hover) and (pointer: fine) {
+  .close:hover,
+  .nav:hover {
+    background-color: rgba(243, 234, 217, 0.2);
+  }
+}
+
+.close {
+  position: absolute;
+  top: calc(-1 * var(--space-6));
+  right: 0;
+  width: 44px;
+  height: 44px;
+}
+
+.nav {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .dialog {
+    animation: none;
+  }
+}
+
+/* Op kleine schermen de pijlen onder de afbeelding plaatsen. */
+@media (max-width: 600px) {
+  .dialog {
+    flex-direction: column;
+  }
+  .close {
+    top: calc(-1 * var(--space-7));
+  }
+  .nav {
+    order: 2;
+  }
+  .media {
+    order: 1;
+  }
+  .prev {
+    position: absolute;
+    bottom: var(--space-2);
+    left: var(--space-2);
+  }
+  .next {
+    position: absolute;
+    bottom: var(--space-2);
+    right: var(--space-2);
+  }
+}

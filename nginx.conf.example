@@ -1,0 +1,58 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Voorbeeld-Nginx-configuratie voor Hairstudio Serenay (statische Vite-build).
+# Serveer de inhoud van de `dist/`-map. Pas server_name en certificaatpaden aan.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# HTTP → HTTPS afdwingen.
+server {
+    listen 80;
+    server_name hairstudioserenay.nl www.hairstudioserenay.nl;
+    return 301 https://www.hairstudioserenay.nl$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name www.hairstudioserenay.nl;
+
+    # TLS-certificaten (bijv. via Let's Encrypt) — pas paden aan.
+    ssl_certificate     /etc/letsencrypt/live/hairstudioserenay.nl/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/hairstudioserenay.nl/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    root /var/www/serenay/dist;
+    index index.html;
+
+    # ── Securityheaders ──────────────────────────────────────────────────────
+    # CSP zonder wildcards: alleen eigen origin + Google Maps-embed.
+    # 'unsafe-inline' staat uitsluitend bij style-src (React inline style-attributen);
+    # script-src blijft strikt 'self'.
+    add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'; upgrade-insecure-requests" always;
+    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
+
+    # ── Compressie ───────────────────────────────────────────────────────────
+    gzip on;
+    gzip_types text/css application/javascript image/svg+xml application/json;
+    gzip_min_length 1024;
+
+    # ── Caching van gehashte assets ──────────────────────────────────────────
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    location ~* \.woff2$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # ── SPA-fallback voor client-side routing ────────────────────────────────
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

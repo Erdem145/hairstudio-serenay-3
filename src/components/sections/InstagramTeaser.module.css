@@ -1,0 +1,56 @@
+.grid {
+  margin-top: var(--space-7);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.tile {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.tile:active {
+  transform: scale(0.98);
+}
+
+.media {
+  border-radius: var(--radius-md);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-on-dark);
+  background-color: rgba(34, 29, 25, 0.32);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover .overlay {
+    opacity: 1;
+  }
+}
+/* Toon het icoon altijd subtiel op touch-apparaten (geen hover). */
+@media (hover: none) {
+  .overlay {
+    opacity: 1;
+    background-color: rgba(34, 29, 25, 0.18);
+  }
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

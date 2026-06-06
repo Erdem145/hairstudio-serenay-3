@@ -1,0 +1,163 @@
+.hero {
+  position: relative;
+  padding-block: clamp(2.5rem, 1.5rem + 5vw, 5rem) var(--section-y);
+  overflow: hidden;
+}
+
+/* Zachte, warme achtergrondgloed achter de tekst. */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 55%;
+  height: 120%;
+  background: radial-gradient(circle at center, rgba(160, 79, 42, 0.1), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.inner {
+  position: relative;
+  z-index: var(--z-base);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 36rem;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-1);
+}
+
+.title {
+  font-size: var(--text-hero);
+  font-weight: 600;
+  line-height: 0.95;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: var(--color-primary);
+  line-height: var(--leading-snug);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+  max-width: 34rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.open {
+  color: var(--olive-deep);
+  background-color: rgba(94, 107, 54, 0.12);
+}
+.closed {
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-alt);
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Media-compositie ───────────────────────────────────────────────────── */
+.media {
+  position: relative;
+  padding-bottom: var(--space-6);
+}
+
+.tileFront {
+  width: 82%;
+  margin-left: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.tileBack {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44%;
+  border: 6px solid var(--color-bg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Subtiele entree-animatie (eenmalig, niet bij reduced-motion) ────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .copy > * {
+    animation: heroIn 700ms var(--ease-out) backwards;
+  }
+  .copy > *:nth-child(1) { animation-delay: 40ms; }
+  .copy > *:nth-child(2) { animation-delay: 100ms; }
+  .copy > *:nth-child(3) { animation-delay: 160ms; }
+  .copy > *:nth-child(4) { animation-delay: 220ms; }
+  .copy > *:nth-child(5) { animation-delay: 280ms; }
+  .copy > *:nth-child(6) { animation-delay: 340ms; }
+  .media {
+    animation: heroIn 800ms var(--ease-out) 200ms backwards;
+  }
+}
+
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-8);
+  }
+}

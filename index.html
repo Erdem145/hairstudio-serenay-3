@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      Content-Security-Policy (meta-variant).
+      Wildcard-vrij: alleen eigen origin + Google Maps-embed is toegestaan.
+      - script-src 'self'      : Vite bundelt naar gehashte externe scripts, geen inline JS nodig.
+      - style-src  'unsafe-inline' : React zet dynamische CSS-variabelen via het style-attribuut
+                                     (stagger-index, lightbox, beeldverhouding). Alleen STYLES, nooit scripts.
+      - font-src   'self'      : lettertypes zijn self-hosted (geen Google Fonts-CDN -> AVG-proof).
+      - img-src    'self' data:: lokale afbeeldingen + inline SVG placeholders.
+      - frame-src  google.com  : uitsluitend de keyless Google Maps-embed.
+      NB: frame-ancestors / X-Frame-Options werken NIET via meta -> staan in _headers en nginx.conf.example.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; form-action 'self'; manifest-src 'self'; upgrade-insecure-requests"
+    />
+
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#F7F1E7" />
+
+    <!-- Statische SEO-defaults (home). Per-pagina worden deze door de <Seo>-component overschreven. -->
+    <title>Hairstudio Serenay — Dameskapsalon in Zandvoort</title>
+    <meta
+      name="description"
+      content="Hairstudio Serenay is een verfijnde dameskapsalon in Zandvoort. Knippen, kleuren, behandelingen en opsteken — met hart voor het vak. Bekijk diensten, prijzen en openingstijden."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:site_name" content="Hairstudio Serenay" />
+    <meta property="og:title" content="Hairstudio Serenay — Dameskapsalon in Zandvoort" />
+    <meta
+      property="og:description"
+      content="Verfijnde dameskapsalon in Zandvoort. Knippen, kleuren, behandelingen en opsteken — met hart voor het vak."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <noscript>
+      Voor de volledige ervaring van Hairstudio Serenay is JavaScript nodig. U kunt ons
+      altijd bereiken via 06 34192433.
+    </noscript>
+  </body>
+</html>

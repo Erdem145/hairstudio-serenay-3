@@ -1,0 +1,24 @@
+EIGEN FOTO'S TOEVOEGEN
+======================
+
+Plaats hier de foto's van de salon. Gebruik bij voorkeur het formaat WebP of een
+goed gecomprimeerde JPG.
+
+Hoe koppel je een foto aan de website?
+
+1. Teamfoto's
+   - Zet het bestand hier neer, bijvoorbeeld:  suna.jpg  /  serenay.jpg
+   - Open  src/data/team.ts  en vul bij het juiste teamlid het veld `image` in:
+        image: '/images/suna.jpg',
+
+2. Portfolio / sfeerbeelden
+   - Maak eventueel een submap aan, bijvoorbeeld:  /images/portfolio/
+   - Open  src/data/portfolio.ts  en vul bij de gewenste tegel het veld `src` in:
+        src: '/images/portfolio/balayage-1.jpg',
+   - Pas ook de `alt`-tekst aan zodat die de foto goed beschrijft (toegankelijkheid + SEO).
+
+Zolang `image`/`src` leeg is, toont de site automatisch een stijlvolle
+kleurvlak-placeholder. Er hoeft dus niets stuk te gaan als een foto nog ontbreekt.
+
+Tip: bestanden in deze /public-map worden 1-op-1 meegekopieerd naar de website.
+Verwijs er altijd naar met een pad dat begint met /images/...
