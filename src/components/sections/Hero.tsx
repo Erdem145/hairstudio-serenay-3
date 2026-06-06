@@ -60,6 +60,7 @@ export function Hero(): JSX.Element {
             tone="terracotta"
             ratio="4 / 5"
             strength={0.16}
+            kenBurns
             className={styles.tileFront}
           />
           <ParallaxImage
@@ -68,10 +69,16 @@ export function Hero(): JSX.Element {
             tone="sand"
             ratio="1 / 1"
             strength={0.18}
+            kenBurns
             className={styles.tileBack}
           />
         </div>
       </Container>
+
+      <div className={styles.scrollCue} aria-hidden="true">
+        <span className={styles.scrollLabel}>Scroll</span>
+        <span className={styles.scrollLine} />
+      </div>
     </section>
   );
 }

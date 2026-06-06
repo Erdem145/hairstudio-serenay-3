@@ -14,6 +14,8 @@ interface ParallaxImageProps {
   ratio?: string;
   /** Hoeveel het beeld bínnen het kader schuift, als fractie van de kaderhoogte (max ~0.2). */
   strength?: number;
+  /** Langzaam in-/uitzoomend Ken Burns-effect op het beeld. */
+  kenBurns?: boolean;
   className?: string;
 }
 
@@ -34,6 +36,7 @@ export function ParallaxImage({
   tone,
   ratio = '4 / 5',
   strength = 0.18,
+  kenBurns = false,
   className,
 }: ParallaxImageProps): JSX.Element {
   const frameRef = useRef<HTMLDivElement>(null);
@@ -85,7 +88,13 @@ export function ParallaxImage({
     <div ref={frameRef} className={`${styles.frame} ${className ?? ''}`} style={frameStyle}>
       <div ref={innerRef} className={styles.inner}>
         {src ? (
-          <img src={assetUrl(src)} alt={alt} loading="lazy" decoding="async" className={styles.img} />
+          <img
+            src={assetUrl(src)}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            className={`${styles.img} ${kenBurns ? styles.kenBurns : ''}`}
+          />
         ) : (
           <div className={`${styles.placeholder} ${styles[tone]}`} {...semantics}>
             <span className={styles.glyph} aria-hidden="true">
