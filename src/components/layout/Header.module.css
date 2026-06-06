@@ -24,10 +24,18 @@
   --header-pad: -0.55rem;
 }
 
-/* Houd de header zelf opaak boven het open menu (overlay zit eronder). */
-.header:has(.mobileMenu[data-open='true']) {
+/* Zodra het menu open is: header opaak, op volledige hoogte en ZONDER
+   backdrop-filter. Die filter zou anders een containing block vormen — en omdat
+   het overlay nu een sibling van de header is, houden we 'm sowieso filtervrij
+   wanneer hij open is. Staat ná .scrolled → overschrijft de scroll-staat. */
+.menuOpen {
   background-color: var(--color-bg);
   border-bottom-color: var(--color-border);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+  --wm-scale: 1;
+  --header-pad: 0rem;
 }
 
 .inner {

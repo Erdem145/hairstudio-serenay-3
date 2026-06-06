@@ -55,49 +55,62 @@ export function Header(): JSX.Element {
   };
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
-      <div className={styles.inner}>
-        <Wordmark />
+    <>
+      <header
+        className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${menuOpen ? styles.menuOpen : ''}`}
+      >
+        <div className={styles.inner}>
+          <Wordmark />
 
-        <nav className={styles.desktopNav} aria-label="Hoofdnavigatie">
-          <ul className={styles.navList}>
-            {navigation.map((link) => (
-              <li key={link.to}>
-                <NavLink
-                  to={link.to}
-                  end={link.to === '/'}
-                  className={({ isActive }) =>
-                    `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
+          <nav className={styles.desktopNav} aria-label="Hoofdnavigatie">
+            <ul className={styles.navList}>
+              {navigation.map((link) => (
+                <li key={link.to}>
+                  <NavLink
+                    to={link.to}
+                    end={link.to === '/'}
+                    className={({ isActive }) =>
+                      `${styles.navLink} ${isActive ? styles.navLinkActive : ''}`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <div className={styles.actions}>
-          <Button href={`tel:${site.contact.phoneHref}`} variant="secondary" size="md" icon="phone" iconPosition="start">
-            Bel ons
-          </Button>
+          <div className={styles.actions}>
+            <Button
+              href={`tel:${site.contact.phoneHref}`}
+              variant="secondary"
+              size="md"
+              icon="phone"
+              iconPosition="start"
+            >
+              Bel ons
+            </Button>
+          </div>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className={styles.menuToggle}
+            data-open={menuOpen}
+            aria-expanded={menuOpen}
+            aria-controls="mobiel-menu"
+            aria-label={menuOpen ? 'Menu sluiten' : 'Menu openen'}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className={styles.bars} aria-hidden="true" />
+          </button>
         </div>
+      </header>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className={styles.menuToggle}
-          data-open={menuOpen}
-          aria-expanded={menuOpen}
-          aria-controls="mobiel-menu"
-          aria-label={menuOpen ? 'Menu sluiten' : 'Menu openen'}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span className={styles.bars} aria-hidden="true" />
-        </button>
-      </div>
-
-      {/* Altijd gemonteerd → onderbreekbare enter/exit-transities (emil-design-eng). */}
+      {/* Overlay BEWUST buiten <header>: een gescrolde header heeft backdrop-filter,
+          en dat maakt een containing block voor position:fixed-kinderen. Binnen de
+          header zou het menu daardoor inklappen tot de headerhoogte. Als sibling
+          blijft het altijd t.o.v. het scherm gepositioneerd. */}
       <div
         className={styles.mobileMenu}
         data-open={menuOpen}
@@ -141,7 +154,13 @@ export function Header(): JSX.Element {
             <Button href={`tel:${site.contact.phoneHref}`} icon="phone" iconPosition="start" fullWidth>
               Bel {site.contact.phoneDisplay}
             </Button>
-            <Button href={site.contact.whatsappHref} variant="secondary" icon="whatsapp" iconPosition="start" fullWidth>
+            <Button
+              href={site.contact.whatsappHref}
+              variant="secondary"
+              icon="whatsapp"
+              iconPosition="start"
+              fullWidth
+            >
               WhatsApp ons
             </Button>
             {instagram && (
@@ -158,6 +177,6 @@ export function Header(): JSX.Element {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }
