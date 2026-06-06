@@ -69,7 +69,6 @@ export function Hero(): JSX.Element {
             tone="sand"
             ratio="1 / 1"
             strength={0.18}
-            kenBurns
             className={styles.tileBack}
           />
         </div>

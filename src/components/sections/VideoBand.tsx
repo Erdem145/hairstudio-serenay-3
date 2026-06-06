@@ -43,7 +43,7 @@ export function VideoBand(): JSX.Element {
       <video
         ref={videoRef}
         className={styles.video}
-        poster={assetUrl('/images/sfeer/statement.jpg')}
+        poster={assetUrl('/images/sfeer/verhaal.jpg')}
         muted
         loop
         playsInline

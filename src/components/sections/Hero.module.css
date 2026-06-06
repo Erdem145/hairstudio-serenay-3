@@ -28,10 +28,10 @@
 }
 @keyframes heroDrift {
   from {
-    transform: translate3d(-4%, -2%, 0) scale(1);
+    transform: translate3d(-3%, -2%, 0) scale(1);
   }
   to {
-    transform: translate3d(5%, 4%, 0) scale(1.18);
+    transform: translate3d(4%, 3%, 0) scale(1.12);
   }
 }
 
