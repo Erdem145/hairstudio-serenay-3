@@ -61,6 +61,7 @@ export function Hero(): JSX.Element {
             ratio="4 / 5"
             strength={0.16}
             kenBurns
+            priority
             className={styles.tileFront}
           />
           <ParallaxImage
@@ -74,11 +75,6 @@ export function Hero(): JSX.Element {
           />
         </div>
       </Container>
-
-      <div className={styles.scrollCue} aria-hidden="true">
-        <span className={styles.scrollLabel}>Scroll</span>
-        <span className={styles.scrollLine} />
-      </div>
     </section>
   );
 }

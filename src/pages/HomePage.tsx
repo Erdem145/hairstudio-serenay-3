@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { about, pageSeo, serviceGroups, site } from '../data';
+import { about, pageSeo, site } from '../data';
 import { Seo } from '../components/seo/Seo';
 import { Section } from '../components/ui/Section';
 import { Container } from '../components/ui/Container';
@@ -9,7 +9,6 @@ import { ParallaxImage } from '../components/ui/ParallaxImage';
 import { SectionHeading } from '../components/ui/SectionHeading';
 import { Icon } from '../components/ui/Icon';
 import { Hero } from '../components/sections/Hero';
-import { Marquee } from '../components/sections/Marquee';
 import { StatementBand } from '../components/sections/StatementBand';
 import { VideoBand } from '../components/sections/VideoBand';
 import { ServicesPreview } from '../components/sections/ServicesPreview';
@@ -23,8 +22,6 @@ export function HomePage(): JSX.Element {
     <>
       <Seo page={pageSeo.home} />
       <Hero />
-
-      <Marquee items={serviceGroups.map((group) => group.title)} />
 
       {/* Welkom / korte introductie */}
       <Section aria-labelledby="welkom-titel">
