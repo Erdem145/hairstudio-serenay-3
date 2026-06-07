@@ -24,8 +24,9 @@
   --header-pad: -0.55rem;
 }
 
-/* Houd de header zelf opaak boven het open menu (overlay zit eronder). */
-.header:has(.mobileMenu[data-open='true']) {
+/* Houd de header zelf opaak boven het open menu (overlay zit eronder).
+   Het menu staat via een portal in <body>, dus we sturen op de header-state. */
+.header[data-menu-open='true'] {
   background-color: var(--color-bg);
   border-bottom-color: var(--color-border);
 }

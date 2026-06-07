@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, JSX } from 'react';
+import { createPortal } from 'react-dom';
 import { NavLink, useLocation } from 'react-router-dom';
 import { navigation, openingHours, site } from '../../data';
 import { formatAddressLine, getOpenStatus } from '../../lib/format';
@@ -55,7 +56,10 @@ export function Header(): JSX.Element {
   };
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header
+      className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}
+      data-menu-open={menuOpen}
+    >
       <div className={styles.inner}>
         <Wordmark />
 
@@ -97,67 +101,72 @@ export function Header(): JSX.Element {
         </button>
       </div>
 
-      {/* Altijd gemonteerd → onderbreekbare enter/exit-transities (emil-design-eng). */}
-      <div
-        className={styles.mobileMenu}
-        data-open={menuOpen}
-        id="mobiel-menu"
-        aria-hidden={!menuOpen}
-        style={{ '--n': navigation.length } as CSSProperties}
-      >
-        <nav className={styles.mobileNav} aria-label="Mobiele navigatie">
-          <ul className={styles.mobileList}>
-            {navigation.map((link, index) => (
-              <li key={link.to} style={{ '--i': index } as CSSProperties}>
-                <NavLink
-                  ref={index === 0 ? firstLinkRef : undefined}
-                  to={link.to}
-                  end={link.to === '/'}
-                  onClick={closeMenu}
-                  className={({ isActive }) =>
-                    `${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ''}`
-                  }
-                >
-                  <span>{link.label}</span>
-                  <Icon name="arrowUpRight" size={22} className={styles.mobileLinkIcon} />
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      {/* In <body> via portal → fixed-positionering blijft t.o.v. het scherm, ook
+          wanneer de header door scroll een backdrop-filter (containing block) krijgt.
+          Altijd gemonteerd → onderbreekbare enter/exit-transities (emil-design-eng). */}
+      {createPortal(
+        <div
+          className={styles.mobileMenu}
+          data-open={menuOpen}
+          id="mobiel-menu"
+          aria-hidden={!menuOpen}
+          style={{ '--n': navigation.length } as CSSProperties}
+        >
+          <nav className={styles.mobileNav} aria-label="Mobiele navigatie">
+            <ul className={styles.mobileList}>
+              {navigation.map((link, index) => (
+                <li key={link.to} style={{ '--i': index } as CSSProperties}>
+                  <NavLink
+                    ref={index === 0 ? firstLinkRef : undefined}
+                    to={link.to}
+                    end={link.to === '/'}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `${styles.mobileLink} ${isActive ? styles.mobileLinkActive : ''}`
+                    }
+                  >
+                    <span>{link.label}</span>
+                    <Icon name="arrowUpRight" size={22} className={styles.mobileLinkIcon} />
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <div className={styles.mobileFooter}>
-          <div className={styles.mobileMeta}>
-            <span className={`${styles.statusPill} ${status.isOpen ? styles.open : styles.closed}`}>
-              <span className={styles.dot} aria-hidden="true" />
-              {status.label}
-            </span>
-            <span className={styles.mobileAddress}>
-              <Icon name="mapPin" size={16} />
-              {formatAddressLine(site.address)}
-            </span>
+          <div className={styles.mobileFooter}>
+            <div className={styles.mobileMeta}>
+              <span className={`${styles.statusPill} ${status.isOpen ? styles.open : styles.closed}`}>
+                <span className={styles.dot} aria-hidden="true" />
+                {status.label}
+              </span>
+              <span className={styles.mobileAddress}>
+                <Icon name="mapPin" size={16} />
+                {formatAddressLine(site.address)}
+              </span>
+            </div>
+            <div className={styles.mobileActions}>
+              <Button href={`tel:${site.contact.phoneHref}`} icon="phone" iconPosition="start" fullWidth>
+                Bel {site.contact.phoneDisplay}
+              </Button>
+              <Button href={site.contact.whatsappHref} variant="secondary" icon="whatsapp" iconPosition="start" fullWidth>
+                WhatsApp ons
+              </Button>
+              {instagram && (
+                <a
+                  className={styles.mobileSocial}
+                  href={instagram.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon name="instagram" size={20} />
+                  {instagram.label}
+                </a>
+              )}
+            </div>
           </div>
-          <div className={styles.mobileActions}>
-            <Button href={`tel:${site.contact.phoneHref}`} icon="phone" iconPosition="start" fullWidth>
-              Bel {site.contact.phoneDisplay}
-            </Button>
-            <Button href={site.contact.whatsappHref} variant="secondary" icon="whatsapp" iconPosition="start" fullWidth>
-              WhatsApp ons
-            </Button>
-            {instagram && (
-              <a
-                className={styles.mobileSocial}
-                href={instagram.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon name="instagram" size={20} />
-                {instagram.label}
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
+        </div>,
+        document.body,
+      )}
     </header>
   );
 }
