@@ -13,6 +13,7 @@ en Instagram.
 - [Content aanpassen (voor de eigenaar)](#content-aanpassen-voor-de-eigenaar)
 - [Designsysteem](#designsysteem)
 - [Toegankelijkheid & SEO](#toegankelijkheid--seo)
+- [Performance](#performance)
 - [Security](#security)
 - [Deployen](#deployen)
 
@@ -58,7 +59,8 @@ src/
 ├── components/
 │   ├── ui/             kleine bouwstenen (Button, Icon, Section, Reveal, MediaTile …)
 │   ├── layout/         Header, Footer, Layout, CookieConsent, ScrollToTop
-│   ├── seo/            Seo-component
+│   ├── seo/            Seo + StructuredData (JSON-LD)
+│   ├── analytics/      cookieloze Cloudflare Web Analytics (opt-in)
 │   └── sections/       paginasecties (Hero, ServiceList, PortfolioGrid, MapEmbed …)
 └── pages/           # één bestand per route
 ```
@@ -138,8 +140,39 @@ Zonder foto toont de site automatisch een stijlvolle kleurvlak-placeholder.
 - Alt-teksten op alle betekenisvolle beelden; status/kleur nooit als enige informatie.
 - Mobile-first, getest op 375 / 768 / 1024 / 1440 px.
 - Per-pagina `title`, `description`, canonical en Open Graph-tags (component `Seo`).
-- Structured data (`schema.org/HairSalon`) via microdata in de footer — zónder inline
-  script, zodat de strikte CSP behouden blijft.
+- Rijke **structured data** (`schema.org/HairSalon`) als **JSON-LD** (component
+  [`StructuredData`](src/components/seo/StructuredData.tsx)): naam, adres,
+  telefoon, openingstijden en Instagram — het door Google aanbevolen formaat voor
+  lokale rich results. Gegenereerd uit de data-laag; CSP-veilig (een `ld+json`-blok
+  is data, geen uitvoerbaar script).
+- **`sitemap.xml` + `robots.txt`** worden bij de build automatisch gegenereerd met de
+  juiste domein-URL (zie [`scripts/postbuild.mjs`](scripts/postbuild.mjs)). Dien de
+  sitemap in via Google Search Console voor snellere indexering.
+
+## Performance
+
+- **Afbeeldingen** laden lazy (`loading="lazy"` + `decoding="async"`) en staan in vaste
+  beeldkaders (`aspect-ratio`) → geen layout-shift (CLS). De **hero-afbeelding** (boven de
+  vouw) laadt juist direct met hoge prioriteit (`priority`-prop op `ParallaxImage` →
+  `loading="eager"` + `fetchpriority="high"`) voor een snellere LCP.
+- **Animaties** gebruiken alleen `transform`/`opacity` (GPU) en respecteren
+  `prefers-reduced-motion`.
+- **Lettertypes** zijn self-hosted en gesubset; gehashte assets + woff2 worden 1 jaar
+  immutable gecachet (zie `public/_headers` / `nginx.conf.example`).
+
+### Nog te doen (handmatig, grootste winst)
+
+- **Video comprimeren.** `public/video/salon.mp4` is ~8,7 MB — veruit het zwaarste bestand.
+  Comprimeer naar ~2–3 MB (720p) met [ffmpeg](https://ffmpeg.org):
+
+  ```bash
+  ffmpeg -i salon.mp4 -vf "scale=-2:720" -c:v libx264 -crf 28 -preset slow \
+    -movflags +faststart -an salon-720.mp4
+  ```
+
+  (`-an` haalt de audiotrack eruit; de video staat toch op mute.) Vervang daarna het bestand.
+- **Foto's als WebP/AVIF** (~30–50% kleiner) met bv. [Squoosh](https://squoosh.app) of
+  `sharp`, en koppel ze via `team.ts` / `portfolio.ts`.
 
 ## Security
 
@@ -151,14 +184,17 @@ als **HTTP-header** in [`public/_headers`](public/_headers) en
 
 ```
 default-src 'self'; base-uri 'self'; object-src 'none';
-script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;
-font-src 'self'; connect-src 'self'; frame-src https://www.google.com;
-form-action 'self'; frame-ancestors 'none'; manifest-src 'self';
-upgrade-insecure-requests
+script-src 'self' https://static.cloudflareinsights.com;
+style-src 'self' 'unsafe-inline'; img-src 'self' data:;
+font-src 'self'; media-src 'self';
+connect-src 'self' https://cloudflareinsights.com;
+frame-src https://www.google.com; form-action 'self';
+frame-ancestors 'none'; manifest-src 'self'; upgrade-insecure-requests
 ```
 
-- **`script-src 'self'`** — strikt. Vite bundelt naar gehashte, externe scripts; er is
-  geen inline JavaScript.
+- **`script-src 'self' + static.cloudflareinsights.com`** — strikt. Vite bundelt naar
+  gehashte, externe scripts (geen inline JavaScript); de Cloudflare-origin is uitsluitend
+  voor de optionele, cookieloze analytics-beacon (zie [Statistieken](#statistieken-cookieloos)).
 - **`style-src 'unsafe-inline'`** — *uitsluitend voor styles*, omdat React enkele
   dynamische waarden via het `style`-attribuut zet (stagger-vertraging, beeldverhouding,
   lightbox). Dit is nodig vanwege de stack en vormt een laag risico (geen scriptuitvoering).
@@ -195,6 +231,21 @@ Alle `target="_blank"`-links krijgen automatisch `rel="noopener noreferrer"`
 - Er is **geen formulier met dataopslag** en geen backend-endpoint. Daardoor is er
   **geen CSRF- of (server-side) injectie-risico**: er is simpelweg geen invoer die
   wordt verwerkt of opgeslagen.
+
+### Statistieken (cookieloos)
+
+Bezoekersstatistieken lopen via **Cloudflare Web Analytics** — privacyvriendelijk en
+**zonder cookies**, dus geen extra toestemming/cookiebanner nodig onder de AVG. Het is
+**opt-in**: pas wanneer je `VITE_CF_BEACON_TOKEN` invult (zie `.env.example`) wordt de
+beacon geladen; zonder token gebeurt er niets.
+
+1. Maak (gratis) een Cloudflare-account en voeg je site toe onder **Web Analytics**.
+2. Kopieer de `token`-waarde uit het JS-snippet.
+3. Zet die in `.env` (lokaal) of als build-env in de deploy-workflow.
+
+De beacon-origins staan al toegestaan in de CSP. Een privacyvriendelijk alternatief is
+[Plausible](https://plausible.io) (zelf-hosten of betaald) — daarvoor moet je de CSP-
+origins aanpassen.
 
 ### Onderhoud
 

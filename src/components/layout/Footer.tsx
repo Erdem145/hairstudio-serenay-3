@@ -7,44 +7,20 @@ import { Icon } from '../ui/Icon';
 import { Wordmark } from './Wordmark';
 import styles from './Footer.module.css';
 
-/** Schema.org-afkortingen voor openingstijden (microdata, CSP-veilig). */
-const schemaDay: Record<string, string> = {
-  Maandag: 'Mo',
-  Dinsdag: 'Tu',
-  Woensdag: 'We',
-  Donderdag: 'Th',
-  Vrijdag: 'Fr',
-  Zaterdag: 'Sa',
-  Zondag: 'Su',
-};
-
+/**
+ * Site-footer. De structured data (schema.org/HairSalon) zit niet meer als
+ * microdata hier, maar als rijke JSON-LD via de StructuredData-component.
+ */
 export function Footer(): JSX.Element {
   const year = new Date().getFullYear();
   const { address, contact, socials } = site;
 
   return (
-    <footer className={styles.footer} itemScope itemType="https://schema.org/HairSalon">
-      {/* Structured data zonder inline script — gegenereerd uit de data-laag. */}
-      <meta itemProp="name" content={site.name} />
-      <meta itemProp="url" content={site.url} />
-      <meta itemProp="image" content={`${site.url}/favicon.svg`} />
-      <meta itemProp="priceRange" content="€€" />
-      {openingHours.map((day) =>
-        day.open && day.close ? (
-          <meta
-            key={day.day}
-            itemProp="openingHours"
-            content={`${schemaDay[day.day]} ${day.open}-${day.close}`}
-          />
-        ) : null,
-      )}
-
+    <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
           <Wordmark tone="light" />
-          <p className={styles.description} itemProp="description">
-            {site.description}
-          </p>
+          <p className={styles.description}>{site.description}</p>
           {socials.length > 0 && (
             <ul className={styles.socials}>
               {socials.map((social) => (
@@ -54,7 +30,6 @@ export function Footer(): JSX.Element {
                     className={styles.socialLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    itemProp="sameAs"
                     aria-label={`${site.shortName} op ${social.platform}`}
                   >
                     <Icon name={social.icon} size={20} />
@@ -92,22 +67,15 @@ export function Footer(): JSX.Element {
 
         <div className={styles.column}>
           <h2 className={styles.colTitle}>Contact</h2>
-          <address
-            className={styles.address}
-            itemProp="address"
-            itemScope
-            itemType="https://schema.org/PostalAddress"
-          >
-            <span itemProp="streetAddress">{address.street}</span>
+          <address className={styles.address}>
+            <span>{address.street}</span>
             <span>
-              <span itemProp="postalCode">{address.postalCode}</span>{' '}
-              <span itemProp="addressLocality">{address.city}</span>
+              {address.postalCode} {address.city}
             </span>
-            <meta itemProp="addressCountry" content="NL" />
           </address>
           <ul className={styles.linkList}>
             <li>
-              <a href={`tel:${contact.phoneHref}`} className={styles.link} itemProp="telephone">
+              <a href={`tel:${contact.phoneHref}`} className={styles.link}>
                 {contact.phoneDisplay}
               </a>
             </li>
@@ -123,7 +91,7 @@ export function Footer(): JSX.Element {
             </li>
             <li>
               {contact.email ? (
-                <a href={`mailto:${contact.email}`} className={styles.link} itemProp="email">
+                <a href={`mailto:${contact.email}`} className={styles.link}>
                   {contact.email}
                 </a>
               ) : (

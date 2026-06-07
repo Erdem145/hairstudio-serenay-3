@@ -7,18 +7,21 @@
 
     <!--
       Content-Security-Policy (meta-variant).
-      Wildcard-vrij: alleen eigen origin + Google Maps-embed is toegestaan.
-      - script-src 'self'      : Vite bundelt naar gehashte externe scripts, geen inline JS nodig.
+      Wildcard-vrij: alleen eigen origin + Google Maps-embed + (optioneel) Cloudflare Web Analytics.
+      - script-src 'self' + static.cloudflareinsights.com : Vite bundelt naar gehashte externe
+                                     scripts (geen inline JS); de CF-origin is voor de cookieloze
+                                     analytics-beacon (laadt alleen als VITE_CF_BEACON_TOKEN is gezet).
       - style-src  'unsafe-inline' : React zet dynamische CSS-variabelen via het style-attribuut
                                      (stagger-index, lightbox, beeldverhouding). Alleen STYLES, nooit scripts.
       - font-src   'self'      : lettertypes zijn self-hosted (geen Google Fonts-CDN -> AVG-proof).
       - img-src    'self' data:: lokale afbeeldingen + inline SVG placeholders.
+      - connect-src 'self' + cloudflareinsights.com : eigen origin + de analytics-beacon.
       - frame-src  google.com  : uitsluitend de keyless Google Maps-embed.
       NB: frame-ancestors / X-Frame-Options werken NIET via meta -> staan in _headers en nginx.conf.example.
     -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; frame-src https://www.google.com; form-action 'self'; manifest-src 'self'; upgrade-insecure-requests"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://cloudflareinsights.com; frame-src https://www.google.com; form-action 'self'; manifest-src 'self'; upgrade-insecure-requests"
     />
 
     <meta name="referrer" content="strict-origin-when-cross-origin" />

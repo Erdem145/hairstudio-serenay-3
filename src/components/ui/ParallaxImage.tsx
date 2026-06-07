@@ -16,6 +16,11 @@ interface ParallaxImageProps {
   strength?: number;
   /** Langzaam in-/uitzoomend Ken Burns-effect op het beeld. */
   kenBurns?: boolean;
+  /**
+   * Belangrijk, boven-de-vouw beeld (bijv. de hero). Laadt direct (eager) met
+   * hoge prioriteit → snellere Largest Contentful Paint. Gebruik op max. 1 beeld.
+   */
+  priority?: boolean;
   className?: string;
 }
 
@@ -37,6 +42,7 @@ export function ParallaxImage({
   ratio = '4 / 5',
   strength = 0.18,
   kenBurns = false,
+  priority = false,
   className,
 }: ParallaxImageProps): JSX.Element {
   const frameRef = useRef<HTMLDivElement>(null);
@@ -91,7 +97,8 @@ export function ParallaxImage({
           <img
             src={assetUrl(src)}
             alt={alt}
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            fetchPriority={priority ? 'high' : 'auto'}
             decoding="async"
             className={`${styles.img} ${kenBurns ? styles.kenBurns : ''}`}
           />
