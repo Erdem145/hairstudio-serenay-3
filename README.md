@@ -83,10 +83,11 @@ voorzien van uitleg in commentaar.
 | Portfolio / sfeerbeelden | [`src/data/portfolio.ts`](src/data/portfolio.ts) |
 | Pagina-titels & SEO-omschrijvingen | [`src/data/seo.ts`](src/data/seo.ts) |
 
-### Prijzen invullen
+### Prijzen aanpassen
 
-In `services.ts` heeft elke dienst een `price`. Nu staat alles op `on-request`
-("Op aanvraag"). Voorbeelden om prijzen toe te voegen:
+In `services.ts` heeft elke dienst een `price`. De vanaf-prijzen van de eigenaar
+(juni 2026) zijn ingevuld als `{ kind: 'from', amount: ... }`. Voorbeelden van
+de mogelijke prijsvormen:
 
 ```ts
 { name: 'Knippen & föhnen', price: { kind: 'fixed', amount: 35 } }      // € 35,-

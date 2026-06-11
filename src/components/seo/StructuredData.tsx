@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { openingHours, site } from '../../data';
+import { openingHours, serviceGroups, site } from '../../data';
+import type { ServicePrice } from '../../data/types';
 
 /**
  * Site-brede structured data (schema.org/HairSalon) als JSON-LD.
@@ -25,6 +26,42 @@ const dayToSchema: Record<string, string> = {
   Zaterdag: 'Saturday',
   Zondag: 'Sunday',
 };
+
+/** Vertaalt een prijs uit de data-laag naar een schema.org-prijsspecificatie. */
+function toPriceSpecification(price: ServicePrice): Record<string, unknown> | undefined {
+  if (price.amount === undefined) return undefined;
+  const base = { '@type': 'PriceSpecification', priceCurrency: 'EUR' };
+  switch (price.kind) {
+    case 'fixed':
+      return { ...base, price: price.amount };
+    case 'from':
+      return { ...base, minPrice: price.amount };
+    case 'range':
+      return { ...base, minPrice: price.amount, maxPrice: price.amountMax };
+    default:
+      return undefined;
+  }
+}
+
+/** Dienstenlijst als OfferCatalog, gegenereerd uit src/data/services.ts. */
+function buildOfferCatalog(): Record<string, unknown> {
+  return {
+    '@type': 'OfferCatalog',
+    name: 'Diensten & prijzen',
+    itemListElement: serviceGroups.map((group) => ({
+      '@type': 'OfferCatalog',
+      name: group.title,
+      itemListElement: group.items.map((item) => {
+        const priceSpecification = toPriceSpecification(item.price);
+        return {
+          '@type': 'Offer',
+          itemOffered: { '@type': 'Service', name: item.name },
+          ...(priceSpecification && { priceSpecification }),
+        };
+      }),
+    })),
+  };
+}
 
 function buildSchema(): Record<string, unknown> {
   return {
@@ -55,6 +92,7 @@ function buildSchema(): Record<string, unknown> {
         opens: day.open,
         closes: day.close,
       })),
+    hasOfferCatalog: buildOfferCatalog(),
     sameAs: site.socials.map((social) => social.href),
   };
 }

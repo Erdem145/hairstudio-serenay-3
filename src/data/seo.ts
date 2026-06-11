@@ -16,7 +16,7 @@ export const pageSeo = {
   services: {
     title: 'Diensten & prijzen — Hairstudio Serenay',
     description:
-      'Ontdek de diensten van Hairstudio Serenay: knippen, kleuren, behandelingen en styling & opsteken. Bekijk het overzicht en vraag naar de actuele tarieven.',
+      'Ontdek de diensten en prijzen van Hairstudio Serenay: knippen, kleuren, behandelingen en styling & opsteken. Knippen vanaf € 35, balayage vanaf € 75.',
     path: '/diensten',
   },
   about: {

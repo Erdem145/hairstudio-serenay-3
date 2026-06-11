@@ -25,8 +25,8 @@ export function ServicesPage(): JSX.Element {
           <Reveal className={styles.note}>
             <Icon name="sparkles" size={22} className={styles.noteIcon} />
             <p>
-              De tarieven worden binnenkort toegevoegd. Vraag gerust naar de actuele prijzen —
-              bel ons op{' '}
+              Alle tarieven zijn vanaf-prijzen; de uiteindelijke prijs hangt af van je haarlengte
+              en -dikte. Vragen over de prijzen? Bel ons op{' '}
               <a className={styles.noteLink} href={`tel:${site.contact.phoneHref}`}>
                 {site.contact.phoneDisplay}
               </a>{' '}
